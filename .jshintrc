@@ -1,0 +1,27 @@
+{
+    "globals": {
+        "moment": true,
+        "Deki": true,
+        "_": true
+    },
+    "camelcase": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "indent": 4,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonew": true,
+    "quotmark": "single",
+    "undef": true,
+    "unused": true,
+    "strict": true,
+    "trailing": true,
+    "browser": true,
+    "jquery": true,
+    "node": true,
+    "immed": true,
+    "es3": true
+}
