@@ -1,5 +1,6 @@
 *.orig
 .codio
+.settings
 out
 
 # Logs
