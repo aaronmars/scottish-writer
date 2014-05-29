@@ -1,0 +1,22 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="scoreSettings.html">
+<link rel="import" href="scoreHeader.html">
+<polymer-element name="smw-score" attributes="title author year tuneType instrument">
+    <template>
+        <smw-scoreSettings id="settings"></smw-scoreSettings>
+        <smw-scoreHeader id="header"></smw-scoreHeader>
+        <smw-scoreBody id="body"></smw-scoreBody>
+    </template>
+    <script>
+        Polymer('smw-score', {
+            title: 'Untitled',
+            author: 'FirstName LastName',
+            year: 2014,
+            tuneType: 'Tune Type',
+            instrument: 'Instrument',
+            ready: function() {
+                this.settings = this.$.settings;
+            }
+        });
+    </script>
+</polymer-element>

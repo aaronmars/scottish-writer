@@ -14,5 +14,5 @@
     gulp.task('watch', [ 'inspect' ], function() {
         gulp.watch('**/*.js', [ 'build', 'inspect' ]);
     });
-    gulp.task('default', [ 'inspect', 'build' ]);
+    gulp.task('default', [ 'inspect' ]);
 })();

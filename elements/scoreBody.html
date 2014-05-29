@@ -1,0 +1,30 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<polymer-element name="smw-scoreBody" constructor="SmwStaff" attributes="lines width">
+    <template>
+        <canvas id="scoreCanvas" width="{{width}}" height="{{height}}"></canvas>
+    </template>
+    <script>
+        Polymer('smw-scoreBody', {
+            /*width: 850,
+            height: 1100,
+            created: function() {
+                this.lines = [ false, true, false ];
+                this.measureWidth = this.width / this.
+            },*/
+            ready: function() {
+                var ctx = new Vex.Flow.Renderer(this.$.staffCanvas, Vex.Flow.Renderer.Backends.CANVAS).getContext();
+                var stave = new Vex.Flow.Stave(0, 0, 0);
+                var staffConfig = [];
+                this.lines.forEach(function(line) {
+                    staffConfig.push({ visible: line });
+                });
+                stave.setWidth(this.width)
+                    .setNumLines(staffConfig.length)
+                    .setConfigForLines(staffConfig)
+                    .setContext(ctx)
+                    .draw()
+                    .drawVerticalBarFixed(100);
+            }
+        });
+    </script>
+</polymer-element>
