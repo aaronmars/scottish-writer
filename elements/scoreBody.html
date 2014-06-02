@@ -1,30 +1,20 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<polymer-element name="smw-scoreBody" constructor="SmwStaff" attributes="lines width">
+<link rel="import" href="../app/components/polymer/polymer.html" />
+<link rel="import" href="../app/components/polymer-ajax/polymer-ajax.html" />
+<link rel="import" href="scoreHeader.html" />
+<script src="../vexflow/build/vexflow/vexflow-min.js"></script>
+<polymer-element name="smw-scoreBody" attributes="settings">
     <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <polymer-ajax auto url="/testData/testScore.json"
+            handleAs="json"
+            on-polymer-response="{{scoreReceived}}">
+        </polymer-ajax>
+        <smw-scoreHeader id="header"></smw-scoreHeader>
         <canvas id="scoreCanvas" width="{{width}}" height="{{height}}"></canvas>
     </template>
-    <script>
-        Polymer('smw-scoreBody', {
-            /*width: 850,
-            height: 1100,
-            created: function() {
-                this.lines = [ false, true, false ];
-                this.measureWidth = this.width / this.
-            },*/
-            ready: function() {
-                var ctx = new Vex.Flow.Renderer(this.$.staffCanvas, Vex.Flow.Renderer.Backends.CANVAS).getContext();
-                var stave = new Vex.Flow.Stave(0, 0, 0);
-                var staffConfig = [];
-                this.lines.forEach(function(line) {
-                    staffConfig.push({ visible: line });
-                });
-                stave.setWidth(this.width)
-                    .setNumLines(staffConfig.length)
-                    .setConfigForLines(staffConfig)
-                    .setContext(ctx)
-                    .draw()
-                    .drawVerticalBarFixed(100);
-            }
-        });
-    </script>
+    <script type="text/javascript" src="../js/scoreBody.js"></script>
 </polymer-element>

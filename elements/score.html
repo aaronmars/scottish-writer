@@ -1,22 +1,25 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="scoreSettings.html">
-<link rel="import" href="scoreHeader.html">
-<polymer-element name="smw-score" attributes="title author year tuneType instrument">
+<link rel="import" href="../app/components/polymer/polymer.html" />
+<link rel="import" href="scoreBody.html" />
+<polymer-element name="smw-score">
     <template>
-        <smw-scoreSettings id="settings"></smw-scoreSettings>
-        <smw-scoreHeader id="header"></smw-scoreHeader>
-        <smw-scoreBody id="body"></smw-scoreBody>
+        <style>
+            :host {
+                display: block;
+                height: 1100px;
+                width: 850px;
+                margin: 20px;
+            }
+            :host(.landscape) {
+                height: 850px;
+                width: 1100px;
+            }
+        </style>
+        <smw-scoreBody id="scoreBody"></smw-scoreBody>
     </template>
     <script>
-        Polymer('smw-score', {
-            title: 'Untitled',
-            author: 'FirstName LastName',
-            year: 2014,
-            tuneType: 'Tune Type',
-            instrument: 'Instrument',
-            ready: function() {
-                this.settings = this.$.settings;
-            }
-        });
+        (function() {
+            'use strict';
+            Polymer('smw-score');
+        })();
     </script>
 </polymer-element>

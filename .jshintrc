@@ -1,6 +1,7 @@
 {
     "globals": {
-        "Vex": true
+        "Vex": false,
+        "Polymer": false
     },
     "camelcase": true,
     "curly": true,
@@ -8,10 +9,10 @@
     "forin": true,
     "indent": 4,
     "latedef": true,
-    "newcap": true,
     "noarg": true,
     "noempty": true,
     "nonew": true,
+    "newcap": false,
     "quotmark": "single",
     "undef": true,
     "unused": true,
@@ -20,6 +21,5 @@
     "browser": true,
     "jquery": true,
     "node": true,
-    "immed": true,
-    "es3": true
+    "immed": true
 }
