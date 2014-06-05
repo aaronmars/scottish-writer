@@ -1,20 +1,40 @@
 <link rel="import" href="../app/components/polymer/polymer.html" />
 <link rel="import" href="../app/components/polymer-ajax/polymer-ajax.html" />
+<link rel="import" href="../app/components/polymer-localstorage/polymer-localstorage.html">
 <link rel="import" href="scoreHeader.html" />
-<script src="../vexflow/build/vexflow/vexflow-min.js"></script>
-<polymer-element name="smw-scoreBody" attributes="settings">
+<link rel="import" href="scoreCanvas.html" />
+<polymer-element name="smw-scoreBody">
     <template>
         <style>
             :host {
+                border: solid 1px #EEE;
                 display: block;
+                height: 1100px;
+                margin: 10px;
+                padding: 20px;
+                width: 850px;
+            }
+            :host(.landscape) {
+                height: 850px;
+                width: 1100px;
             }
         </style>
         <polymer-ajax auto url="/testData/testScore.json"
             handleAs="json"
             on-polymer-response="{{scoreReceived}}">
         </polymer-ajax>
-        <smw-scoreHeader id="header"></smw-scoreHeader>
-        <canvas id="scoreCanvas" width="{{width}}" height="{{height}}"></canvas>
+        <polymer-localstorage name="SMWScoreData" value="{{scoreData}}"></polymer-localstorage>
+        <smw-scoreHeader id="scoreHeader" data="{{scoreData.header}}"></smw-scoreHeader>
+        <smw-scoreCanvas id="scoreCanvas" data="{{scoreData.music}}"></smw-scoreCanvas>
     </template>
-    <script type="text/javascript" src="../js/scoreBody.js"></script>
+    <script>
+        (function() {
+            'use strict';
+            Polymer('smw-scoreBody', {
+                scoreReceived: function(e) {
+                    this.scoreData = e.detail.response || {};
+                }
+            });
+        })();
+    </script>
 </polymer-element>

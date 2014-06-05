@@ -1,10 +1,46 @@
 {
-    "staves": [
-        {
-            "measures": [ {}, {}, {}, {} ]
+    "header": {
+        "title": "Untitled",
+        "type": "March",
+        "instrument": "Snare",
+        "composer": "Aaron Mars",
+        "year": "2007"
+    },
+    "music": {
+        "timeSignature": {
+            "beats": 6,
+            "value": 8
         },
-        {
-            "measures": [ {}, {}, {}, {} ]
-        }
-    ]
+        "staves": [
+            {
+                "measures": [
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8 }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 }
+                        ]
+                    },
+                    {},
+                    {}
+                ]
+            },
+            {
+                "measures": [ {}, {}, {}, {} ]
+            }
+        ]
+    }
 }

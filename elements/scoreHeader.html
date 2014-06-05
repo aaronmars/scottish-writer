@@ -1,14 +1,12 @@
 <link rel="import" href="../app/components/polymer/polymer.html">
-<polymer-element name="smw-scoreHeader" attributes="title author year tuneType instrument">
+<polymer-element name="smw-scoreHeader" attributes="data">
     <template>
         <style>
             :host {
                 display: block;
-                flex-direction: column;
-                justify-content: center;
             }
-            #scoreTitle {
-                font-size: 1.7em;
+            #headerTitle {
+                font-size: 2.7em;
                 margin: auto;
                 text-align: center;
                 width: 100%;
@@ -21,15 +19,15 @@
                 text-align: right;
             }
         </style>
-        <div id="scoreTitle" contenteditable="true">{{scoreTitle}}</div>
+        <div id="headerTitle" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="title">{{data.title}}</div>
         <div id="scoreInfo">
             <div id="headerLeft" class="infoRegion">
-                <div id="tuneType" contenteditable="true">{{tuneType}}</div>
-                <div id="instrument" contenteditable="true">{{instrument}}</div>
+                <div id="headerType" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="type">{{data.type}}</div>
+                <div id="headerInstrument" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="instrument">{{data.instrument}}</div>
             </div>
             <div id="headerRight" class="infoRegion">
-                <div id="composer" contenteditable="true">{{composer}}</div>
-                <div id="year" contenteditable="true">{{year}}</div>
+                <div id="headerComposer" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="composer">{{data.composer}}</div>
+                <div id="headerYear" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="year">{{data.year}}</div>
             </div>
         </div>
     </template>
@@ -37,11 +35,20 @@
         (function() {
             'use strict';
             Polymer('smw-scoreHeader', {
-                scoreTitle: 'Untitled',
-                tuneType: 'Tune Type',
-                instrument: 'Instrument',
-                composer: 'FirstName LastName',
-                year: 2014
+                created: function() {
+                    this.data = {
+                        title: 'Untitled',
+                        type: 'Tune Type',
+                        instrument: 'Instrument',
+                        composer: 'First Last',
+                        year: 2000,
+                    };
+                },
+                infoUpdated: function(e, index, element) {
+                    var newValue = e.currentTarget.textContent;
+                    var boundAttribute = element.dataset.fieldName;
+                    this.data[boundAttribute] = newValue;
+                }
             });
         })();
     </script>
