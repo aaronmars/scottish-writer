@@ -1,0 +1,130 @@
+<link rel="import" href="../app/components/polymer/polymer.html" />
+<link rel="import" href="../app/components/polymer-signals/polymer-signals.html" />
+<script src="../app/components/vexflow/build/vexflow/vexflow-min.js"></script>
+<polymer-element name="smw-scoreCanvas" attributes="data width height">
+    <template>
+        <polymer-signals on-polymer-signal-music="{{musicChanged}}"></polymer-signals>
+        <canvas id="vexflowCanvas" width="{{width}}" height="{{height}}"></canvas>
+    </template>
+    <script>
+        (function() {
+            'use strict';
+            var _vexContext = null;
+            var _leftOffset = 0;
+            var _topOffset = 10;
+            var _measureWidth = 0;
+            var _staffHeight = 100;
+            var _noteMapping = {
+                r: 'c/5',
+                l: 'a/4'
+            };
+            Polymer('smw-scoreCanvas', {
+                width: 850,
+                height: 1100,
+                measuresPerStaff: 4,
+                linesConfig: [ false, false, true, false, false ],
+                staffConfig: [],
+                data: {},
+                dataChanged: function() {
+                    this.drawScore();
+                },
+                musicChanged: function(signal) {
+                    var info = signal.detail;
+                    switch(info.command) {
+                        case 'add-bar':
+                            this.addMeasure();
+                            break;
+                    }
+                },
+                ready: function() {
+                    var self = this;
+                    _vexContext = new Vex.Flow.Renderer(self.$.vexflowCanvas, Vex.Flow.Renderer.Backends.CANVAS).getContext();
+                    self.linesConfig.forEach(function(line) {
+                        self.staffConfig.push({ visible: line });
+                    });
+                    _measureWidth = (this.width / this.measuresPerStaff) - 1;
+                },
+                addMeasure: function() {
+                    if(!('staves' in this.data)) {
+                        this.data.staves = [ { measures: [] } ];
+                    }
+                    var staffIndex = this.data.staves.length - 1;
+                    if(this.data.staves[staffIndex].measures.length === this.measuresPerStaff) {
+                        this.data.staves.push({ measures: [] });
+                        staffIndex++;
+                    }
+                    this.data.staves[staffIndex].measures.push({});
+                    this.drawScore();
+                },
+                drawScore: function() {
+                    var score = this.data;
+                    _vexContext.clear();
+                    if(!('staves' in score)) {
+                        return;
+                    }
+                    var staffIndex = 0;
+                    score.staves.forEach(function(staff) {
+                        this.drawStaff(staff, staffIndex);
+                        staffIndex++;
+                    }, this);
+                },
+                drawStaff: function(staff, index) {
+                    if(!('measures' in staff)) {
+                        return;
+                    }
+                    var topOffset = _topOffset + (index * _staffHeight);
+                    var measureIndex = 0;
+                    staff.measures.forEach(function(measure) {
+                        this.drawMeasure(measure, topOffset, measureIndex, (index === 0 && measureIndex === 0));
+                        measureIndex++;
+                    }, this);
+                },
+                drawMeasure: function(measure, top, index, ts) {
+                    var leftOffset = _leftOffset + (index * _measureWidth);
+                    var stave = new Vex.Flow.Stave(leftOffset, top, _measureWidth);
+                    stave.setNumLines(this.staffConfig.length).setConfigForLines(this.staffConfig);
+                    if(index > 0) {
+                        stave.setBegBarType(Vex.Flow.Barline.type.NONE);
+                    }
+                    if(ts) {
+                        var timeSig = this.data.timeSignature.beats + '/' + this.data.timeSignature.value;
+                        stave.addTimeSignature(timeSig, 100);
+                    }
+                    stave.setContext(_vexContext).draw();
+                    if('notes' in measure) {
+                        this.drawNotes(measure.notes, stave);
+                    }
+                },
+                drawNotes: function(notes, stave) {
+                    var vexNotes = [];
+                    notes.forEach(function(note) {
+                        var noteSpec = {
+                            keys: [ _noteMapping[note.hand] ],
+                            duration: note.value.toString(),
+                        };
+                        if('dots' in note) {
+                            noteSpec.dots = note.dots
+                        }
+                        var vexNote = new Vex.Flow.StaveNote(noteSpec);
+                        if('dots' in note) {
+                            for(var i=0; i < note.dots; i++){
+                                vexNote.addDot(0);
+                            }
+                        }
+                        vexNote.setStemLength(50);
+                        vexNotes.push(vexNote);
+                    });
+
+                    var beams = Vex.Flow.Beam.generateBeams(vexNotes, {
+                        stem_direction: -1,
+                        groups: [new Vex.Flow.Fraction(3, 8)]
+                    });
+                    Vex.Flow.Formatter.FormatAndDraw(_vexContext, stave, vexNotes);
+                    beams.forEach(function(beam) {
+                        beam.setContext(_vexContext).draw();
+                    });
+                }
+            });
+        })();
+    </script>
+</polymer-element>

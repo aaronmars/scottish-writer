@@ -1,0 +1,40 @@
+<link rel="import" href="../app/components/polymer/polymer.html" />
+<link rel="import" href="../app/components/polymer-ui-collapsible/polymer-ui-collapsible.html">
+<polymer-element name="smw-scoreControls">
+    <template>
+        <style>
+            :host {
+                display: block;
+                background-color: #EEE;
+                padding: 8px;
+            }
+            .polymer-ui-collapsible-header {
+                cursor: pointer;
+            }
+        </style>
+        <polymer-ui-collapsible>
+            <div class="polymer-ui-collapsible-header">
+                <span>Tools</span>
+            </div>
+            <div>
+                <a href="#" id="add-measure" on-click="{{addMeasureClicked}}">Add Measure</a>
+            </div>
+        </polymer-ui-collapsible>
+    </template>
+    <script>
+        (function() {
+            'use strict';
+            Polymer('smw-scoreControls', {
+                addMeasureClicked: function(e) {
+                    e.preventDefault();
+                    this.asyncFire('polymer-signal', {
+                        name: 'music',
+                        data: {
+                            command: 'add-bar'
+                        }
+                    });
+                }
+            });
+        })();
+    </script>
+</polymer-element>
