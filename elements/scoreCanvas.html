@@ -1,6 +1,6 @@
-<link rel="import" href="../app/components/polymer/polymer.html" />
-<link rel="import" href="../app/components/polymer-signals/polymer-signals.html" />
-<script src="../app/components/vexflow/build/vexflow/vexflow-min.js"></script>
+<link rel="import" href="../bower_components/polymer/polymer.html" />
+<link rel="import" href="../bower_components/polymer-signals/polymer-signals.html" />
+<script src="../bower_components/vexflow/build/vexflow/vexflow-min.js"></script>
 <polymer-element name="smw-scoreCanvas" attributes="data width height">
     <template>
         <polymer-signals on-polymer-signal-music="{{musicChanged}}"></polymer-signals>
@@ -102,6 +102,7 @@
                 drawNotes: function(notes, stave) {
                     var vexNotes = [];
                     var rollStart = null;
+                    var ties = [];
                     notes.forEach(function(note) {
                         var noteSpec = {
                             keys: [ _noteMapping[note.hand] ],
@@ -147,12 +148,13 @@
                             rollStart = vexNote;
                         }
                         if('rollEnd' in note && note.rollEnd === true) {
-                            var tie = new Vex.Flow.StaveTie({
+                            ties.push(new Vex.Flow.StaveTie({
                                 first_note: rollStart,
-                                last_note: vexNote
-                            });
-                            tie.setContext(_vexContext);
-                            //tie.draw();
+                                last_note: vexNote,
+                                first_indices: [0],
+                                last_indices: [0]
+
+                            }));
                         }
                         vexNotes.push(vexNote);
                     });
@@ -163,6 +165,9 @@
                     Vex.Flow.Formatter.FormatAndDraw(_vexContext, stave, vexNotes, 0);
                     beams.forEach(function(beam) {
                         beam.setContext(_vexContext).draw();
+                    });
+                    ties.forEach(function(tie) {
+                        tie.setContext(_vexContext).draw();
                     });
                 }
             });
