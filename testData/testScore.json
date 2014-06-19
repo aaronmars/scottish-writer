@@ -16,30 +16,92 @@
                 "measures": [
                     {
                         "notes": [
-                            { "hand": "r", "value": 8 },
+                            { "hand": "r", "value": 8, "flam": true, "accent": true },
                             { "hand": "l", "value": 8 },
-                            { "hand": "r", "value": 8 },
-                            { "hand": "r", "value": 8 },
+                            { "hand": "r", "value": 8, "rollHashes": 2, "rollStart": true },
+                            { "hand": "r", "value": 8, "rollEnd": true },
                             { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8, "rollHashes": 2, "rollStart": true }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 8, "rollEnd": true },
+                            { "hand": "l", "value": 8, "flam": true, "accent": true },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8, "flam": true, "accent": true },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 16 },
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 16 },
+                            { "hand": "r", "value": 8, "accent": true },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8, "drag": true },
                             { "hand": "r", "value": 8 }
                         ]
                     },
                     {
                         "notes": [
-                            { "hand": "r", "value": 8 },
                             { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8, "drag": true },
                             { "hand": "r", "value": 8 },
-                            { "hand": "l", "value": 8 },
+                            { "hand": "l", "value": 8, "flam": true, "accent": true },
                             { "hand": "r", "value": 8 },
                             { "hand": "l", "value": 8 }
                         ]
-                    },
-                    {},
-                    {}
+                    }
                 ]
             },
             {
-                "measures": [ {}, {}, {}, {} ]
+                "measures": [ {
+                    "notes": [
+                        { "hand": "r", "value": 16 },
+                        { "hand": "l", "value": 16 },
+                        { "hand": "r", "value": 16 },
+                        { "hand": "l", "value": 16 },
+                        { "hand": "r", "value": 8, "accent": true },
+                        { "hand": "l", "value": 8, "accent": true },
+                        { "hand": "r", "value": 16 },
+                        { "hand": "l", "value": 16 },
+                        { "hand": "r", "value": 16 },
+                        { "hand": "l", "value": 16 }
+                    ]
+                }, {
+                    "notes": [
+                        { "hand": "r", "value": 16, "accent": true },
+                        { "hand": "l", "value": 16 },
+                        { "hand": "r", "value": 16 },
+                        { "hand": "l", "value": 16 },
+                        { "hand": "r", "value": 8, "accent": true },
+                        { "hand": "l", "value": 8 },
+                        { "hand": "r", "value": 8 },
+                        { "hand": "l", "value": 8 }
+                    ]
+                }, {
+                    "notes": [
+                        { "hand": "r", "value": 8, "flam": true },
+                        { "hand": "l", "value": 8 },
+                        { "hand": "r", "value": 8, "drag": true },
+                        { "hand": "r", "value": 16 },
+                        { "hand": "l", "value": 16 },
+                        { "hand": "r", "value": 16 },
+                        { "hand": "l", "value": 16 },
+                        { "hand": "r", "value": 8, "accent": true }
+                    ]
+                }, {
+                    "notes": [
+                        { "hand": "l", "value": 8, "flam": true, "accent": true },
+                        { "hand": "r", "value": 8 },
+                        { "hand": "l", "value": 8, "flam": true },
+                        { "hand": "r", "value": 4, "dots": 1, "rollHashes": 3 }
+                    ]
+                } ]
             }
         ]
     }

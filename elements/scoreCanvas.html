@@ -18,6 +18,10 @@
                 r: 'c/5',
                 l: 'a/4'
             };
+            var _graceNoteMapping = {
+                r: 'a/4',
+                l: 'c/5'
+            };
             Polymer('smw-scoreCanvas', {
                 width: 850,
                 height: 1100,
@@ -97,29 +101,66 @@
                 },
                 drawNotes: function(notes, stave) {
                     var vexNotes = [];
+                    var rollStart = null;
                     notes.forEach(function(note) {
                         var noteSpec = {
                             keys: [ _noteMapping[note.hand] ],
                             duration: note.value.toString(),
                         };
                         if('dots' in note) {
-                            noteSpec.dots = note.dots
+                            noteSpec.dots = note.dots;
                         }
                         var vexNote = new Vex.Flow.StaveNote(noteSpec);
                         if('dots' in note) {
-                            for(var i=0; i < note.dots; i++){
+                            for(var i = 0; i < note.dots; i++) {
                                 vexNote.addDot(0);
                             }
                         }
-                        vexNote.setStemLength(50);
+                        if('flam' in note && note.flam === true) {
+                            var flam = new Vex.Flow.GraceNote({
+                                keys: [ _graceNoteMapping[note.hand] ],
+                                duration: '8',
+                                slash: true
+                            });
+                            vexNote.addModifier(0, new Vex.Flow.GraceNoteGroup([ flam ]));
+                        }
+                        if('drag' in note && note.drag === true) {
+                            var drag = [
+                                new Vex.Flow.GraceNote({
+                                    keys: [ _graceNoteMapping[note.hand] ],
+                                    duration: '16'
+                                }),
+                                new Vex.Flow.GraceNote({
+                                    keys: [ _graceNoteMapping[note.hand] ],
+                                    duration: '16'
+                                })
+                            ];
+                            vexNote.addModifier(0, new Vex.Flow.GraceNoteGroup(drag).beamNotes());
+                        }
+                        if('accent' in note && note.accent === true) {
+                            vexNote.addArticulation(0, new Vex.Flow.Articulation('a>').setPosition(Vex.Flow.Modifier.Position.ABOVE));
+                        }
+                        if('rollHashes' in note && note.rollHashes > 0) {
+                            vexNote.addArticulation(0, new Vex.Flow.Tremolo(note.rollHashes));
+                        }
+                        if('rollStart' in note && note.rollStart === true) {
+                            rollStart = vexNote;
+                        }
+                        if('rollEnd' in note && note.rollEnd === true) {
+                            var tie = new Vex.Flow.StaveTie({
+                                first_note: rollStart,
+                                last_note: vexNote
+                            });
+                            tie.setContext(_vexContext);
+                            //tie.draw();
+                        }
                         vexNotes.push(vexNote);
                     });
-
                     var beams = Vex.Flow.Beam.generateBeams(vexNotes, {
                         stem_direction: -1,
                         groups: [new Vex.Flow.Fraction(3, 8)]
                     });
-                    Vex.Flow.Formatter.FormatAndDraw(_vexContext, stave, vexNotes);
+                    Vex.Flow.Formatter.FormatAndDraw(_vexContext, stave, vexNotes, 0);
                     beams.forEach(function(beam) {
                         beam.setContext(_vexContext).draw();
                     });
