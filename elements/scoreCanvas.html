@@ -77,13 +77,14 @@
                         return;
                     }
                     var topOffset = _topOffset + (index * _staffHeight);
-                    var measureIndex = 0;
-                    staff.measures.forEach(function(measure) {
-                        this.drawMeasure(measure, topOffset, measureIndex, (index === 0 && measureIndex === 0));
-                        measureIndex++;
+                    this.rollStartNote = null;
+                    staff.measures.forEach(function(measure, measureIndex, measureArray) {
+                        var isLast = measureIndex === measureArray.length - 1;
+                        var drawTimeSig = (index === 0 && measureIndex === 0);
+                        this.drawMeasure(measure, topOffset, measureIndex, drawTimeSig, isLast);
                     }, this);
                 },
-                drawMeasure: function(measure, top, index, ts) {
+                drawMeasure: function(measure, top, index, ts, lastMeasure) {
                     var leftOffset = _leftOffset + (index * _measureWidth);
                     var stave = new Vex.Flow.Stave(leftOffset, top, _measureWidth);
                     stave.setNumLines(this.staffConfig.length).setConfigForLines(this.staffConfig);
@@ -96,14 +97,13 @@
                     }
                     stave.setContext(_vexContext).draw();
                     if('notes' in measure) {
-                        this.drawNotes(measure.notes, stave);
+                        this.drawNotes(measure.notes, stave, lastMeasure);
                     }
                 },
-                drawNotes: function(notes, stave) {
+                drawNotes: function(notes, stave, lastMeasure) {
                     var vexNotes = [];
-                    var rollStart = null;
                     var ties = [];
-                    notes.forEach(function(note) {
+                    notes.forEach(function(note, index, noteArray) {
                         var noteSpec = {
                             keys: [ _noteMapping[note.hand] ],
                             duration: note.value.toString(),
@@ -145,19 +145,27 @@
                             vexNote.addArticulation(0, new Vex.Flow.Tremolo(note.rollHashes));
                         }
                         if('rollStart' in note && note.rollStart === true) {
-                            rollStart = vexNote;
+                            this.rollStartNote = vexNote;
                         }
                         if('rollEnd' in note && note.rollEnd === true) {
                             ties.push(new Vex.Flow.StaveTie({
-                                first_note: rollStart,
+                                first_note: this.rollStartNote,
                                 last_note: vexNote,
-                                first_indices: [0],
-                                last_indices: [0]
-
+                                first_indices: [ 0 ],
+                                last_indices: [ 0 ]
+                            }));
+                        }
+                        var lastNote = index === noteArray.length - 1;
+                        if(lastMeasure && lastNote && (this.rollStartNote !== null)) {
+                            ties.push(new Vex.Flow.StaveTie({
+                                first_note: this.rollStartNote,
+                                last_note: null,
+                                first_indices: [ 0 ],
+                                last_indices: [ 0 ]
                             }));
                         }
                         vexNotes.push(vexNote);
-                    });
+                    }, this);
                     var beams = Vex.Flow.Beam.generateBeams(vexNotes, {
                         stem_direction: -1,
                         groups: [new Vex.Flow.Fraction(3, 8)]

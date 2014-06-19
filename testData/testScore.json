@@ -99,7 +99,7 @@
                         { "hand": "l", "value": 8, "flam": true, "accent": true },
                         { "hand": "r", "value": 8 },
                         { "hand": "l", "value": 8, "flam": true },
-                        { "hand": "r", "value": 4, "dots": 1, "rollHashes": 3 }
+                        { "hand": "r", "value": 4, "dots": 1, "rollHashes": 3, "rollStart": true }
                     ]
                 } ]
             }

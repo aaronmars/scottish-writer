@@ -12,7 +12,7 @@
             .on('error', function() {});
     });
     gulp.task('watch', [ 'inspect' ], function() {
-        gulp.watch('**/*.js', [ 'build', 'inspect' ]);
+        gulp.watch('**/*.js', [ 'inspect' ]);
     });
     gulp.task('default', [ 'inspect' ]);
 })();
