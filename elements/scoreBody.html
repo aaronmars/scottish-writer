@@ -1,6 +1,6 @@
-<link rel="import" href="../bower_components/polymer/polymer.html" />
-<link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html" />
-<link rel="import" href="../bower_components/polymer-localstorage/polymer-localstorage.html">
+<link rel="import" href="../app/components/polymer/polymer.html" />
+<link rel="import" href="../app/components/polymer-ajax/polymer-ajax.html" />
+<link rel="import" href="../app/components/polymer-localstorage/polymer-localstorage.html">
 <link rel="import" href="scoreHeader.html" />
 <link rel="import" href="scoreCanvas.html" />
 <polymer-element name="smw-scoreBody">
@@ -23,16 +23,24 @@
             handleAs="json"
             on-polymer-response="{{scoreReceived}}">
         </polymer-ajax>
-        <polymer-localstorage name="SMWScoreData" value="{{scoreData}}"></polymer-localstorage>
-        <smw-scoreHeader id="scoreHeader" data="{{scoreData.header}}"></smw-scoreHeader>
+        <polymer-localstorage id="scoreStorage" name="SMWScoreData" value="{{scoreData}}"></polymer-localstorage>
+        <smw-scoreHeader id="scoreHeader" data="{{scoreData}}"></smw-scoreHeader>
         <smw-scoreCanvas id="scoreCanvas" data="{{scoreData.music}}"></smw-scoreCanvas>
     </template>
     <script>
         (function() {
             'use strict';
             Polymer('smw-scoreBody', {
+                ready: function() {
+                    this.scoreData = this.scoreData || {};
+                },
                 scoreReceived: function(e) {
                     this.scoreData = e.detail.response || {};
+                },
+                scoreDataChanged: function() {
+                    console.log('scoreData changed');
+                    //this.$.scoreStorage.value = this.scoreData;
+                    //this.$.scoreStorage.save();
                 }
             });
         })();

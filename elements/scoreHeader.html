@@ -1,4 +1,4 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../app/components/polymer/polymer.html">
 <polymer-element name="smw-scoreHeader" attributes="data">
     <template>
         <style>
@@ -19,15 +19,25 @@
                 text-align: right;
             }
         </style>
-        <div id="headerTitle" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="title">{{data.title}}</div>
+        <div id="headerTitle" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="title">
+            {{data.header.title}}
+        </div>
         <div id="scoreInfo">
             <div id="headerLeft" class="infoRegion">
-                <div id="headerType" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="type">{{data.type}}</div>
-                <div id="headerInstrument" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="instrument">{{data.instrument}}</div>
+                <div id="headerType" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="type">
+                    {{data.header.type}}
+                </div>
+                <div id="headerInstrument" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="instrument">
+                    {{data.header.instrument}}
+                </div>
             </div>
             <div id="headerRight" class="infoRegion">
-                <div id="headerComposer" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="composer">{{data.composer}}</div>
-                <div id="headerYear" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="year">{{data.year}}</div>
+                <div id="headerComposer" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="composer">
+                    {{data.header.composer}}
+                </div>
+                <div id="headerYear" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="year">
+                    {{data.header.year}}
+                </div>
             </div>
         </div>
     </template>
@@ -36,18 +46,18 @@
             'use strict';
             Polymer('smw-scoreHeader', {
                 created: function() {
-                    this.data = {
-                        title: 'Untitled',
-                        type: 'Tune Type',
-                        instrument: 'Instrument',
-                        composer: 'First Last',
-                        year: 2000,
-                    };
+                    this.data = { header: {} };
+                },
+                dataUpdated: function() {
+                    console.log('data updated');
                 },
                 infoUpdated: function(e, index, element) {
+                    console.log('info updated');
                     var newValue = e.currentTarget.textContent;
                     var boundAttribute = element.dataset.fieldName;
-                    this.data[boundAttribute] = newValue;
+                    var newData = this.data;
+                    newData.header[boundAttribute] = newValue;
+                    this.data = newData;
                 }
             });
         })();
