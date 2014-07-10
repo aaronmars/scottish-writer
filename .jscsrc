@@ -64,41 +64,6 @@
         "<",
         "<="
     ],
-    "requireRightStickedOperators": [
-        "!"
-    ],
-    "disallowLeftStickedOperators": [
-        "?",
-        "+",
-        "-",
-        "/",
-        "*",
-        "=",
-        "==",
-        "===",
-        "!=",
-        "!==",
-        ">",
-        ">=",
-        "<",
-        "<="
-    ],
-    "disallowRightStickedOperators": [
-        "?",
-        "+",
-        "/",
-        "*",
-        ":",
-        "=",
-        "==",
-        "===",
-        "!=",
-        "!==",
-        ">",
-        ">=",
-        "<",
-        "<="
-    ],
     "disallowSpaceAfterPrefixUnaryOperators": [
         "++",
         "--",
@@ -120,7 +85,11 @@
         "==",
         "===",
         "!=",
-        "!=="
+        "!==",
+        ">",
+        ">=",
+        "<",
+        "<="
     ],
     "requireSpaceAfterBinaryOperators": [
         "+",
@@ -131,7 +100,11 @@
         "==",
         "===",
         "!=",
-        "!=="
+        "!==",
+        ">",
+        ">=",
+        "<",
+        "<="
     ],
     "disallowImplicitTypeConversion": [
         "numeric",

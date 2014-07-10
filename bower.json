@@ -20,7 +20,6 @@
     "polymer": "Polymer/polymer#~0.3.0",
     "polymer-ui-collapsible": "Polymer/polymer-ui-collapsible#~0.3.0",
     "polymer-ajax": "Polymer/polymer-ajax#~0.3.0",
-    "polymer-localstorage": "Polymer/polymer-localstorage#~0.3.0",
     "polymer-signals": "Polymer/polymer-signals#~0.3.0"
   }
 }

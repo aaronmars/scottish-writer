@@ -1,0 +1,16 @@
+<link rel="import" href="../bower_components/polymer/polymer.html" />
+<polymer-element name="smw-score-settings">
+    <script>
+        (function() {
+            'use strict';
+            var globalSettings = {
+                measuresPerStaff: 4
+            };
+            Polymer('smw-score-settings', {
+                ready: function() {
+                    this.settings = globalSettings;
+                }
+            });
+        })();
+    </script>
+</polymer-element>

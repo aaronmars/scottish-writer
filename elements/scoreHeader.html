@@ -1,5 +1,5 @@
-<link rel="import" href="../app/components/polymer/polymer.html">
-<polymer-element name="smw-scoreHeader" attributes="data">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<polymer-element name="smw-score-header" attributes="data">
     <template>
         <style>
             :host {
@@ -19,24 +19,24 @@
                 text-align: right;
             }
         </style>
-        <div id="headerTitle" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="title">
-            {{data.header.title}}
+        <div id="headerTitle" contenteditable="true" on-blur="{{ infoUpdated }}" data-field-name="title">
+            {{ data.title }}
         </div>
         <div id="scoreInfo">
             <div id="headerLeft" class="infoRegion">
-                <div id="headerType" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="type">
-                    {{data.header.type}}
+                <div id="headerType" contenteditable="true" on-blur="{{ infoUpdated }}" data-field-name="type">
+                    {{ data.type }}
                 </div>
-                <div id="headerInstrument" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="instrument">
-                    {{data.header.instrument}}
+                <div id="headerInstrument" contenteditable="true" on-blur="{{ infoUpdated }}" data-field-name="instrument">
+                    {{data.instrument}}
                 </div>
             </div>
             <div id="headerRight" class="infoRegion">
-                <div id="headerComposer" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="composer">
-                    {{data.header.composer}}
+                <div id="headerComposer" contenteditable="true" on-blur="{{ infoUpdated }}" data-field-name="composer">
+                    {{ data.composer }}
                 </div>
-                <div id="headerYear" contenteditable="true" on-blur="{{infoUpdated}}" data-field-name="year">
-                    {{data.header.year}}
+                <div id="headerYear" contenteditable="true" on-blur="{{ infoUpdated }}" data-field-name="year">
+                    {{ data.year }}
                 </div>
             </div>
         </div>
@@ -44,20 +44,11 @@
     <script>
         (function() {
             'use strict';
-            Polymer('smw-scoreHeader', {
-                created: function() {
-                    this.data = { header: {} };
-                },
-                dataUpdated: function() {
-                    console.log('data updated');
-                },
+            Polymer('smw-score-header', {
                 infoUpdated: function(e, index, element) {
-                    console.log('info updated');
                     var newValue = e.currentTarget.textContent;
                     var boundAttribute = element.dataset.fieldName;
-                    var newData = this.data;
-                    newData.header[boundAttribute] = newValue;
-                    this.data = newData;
+                    this.data.header[boundAttribute] = newValue;
                 }
             });
         })();

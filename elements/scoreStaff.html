@@ -1,0 +1,15 @@
+<link rel="import" href="../bower_components/polymer/polymer.html" />
+<link rel="import" href="scoreMeasure.html" />
+<polymer-element name="smw-score-staff" attributes="data context settings">
+    <template>
+        <template repeat="{{ measure in data.measures }}">
+            <smw-score-measure
+                data="{{ measure }}"
+                context="{{ context }}"
+                settings="{{ settings }}"
+                width="{{ width }}">
+            </smw-score-measure>
+        </template>
+    </template>
+    <script src="../js/scoreStaff.js"></script>
+</polymer-element>

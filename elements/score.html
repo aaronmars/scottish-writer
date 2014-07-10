@@ -1,20 +1,14 @@
-<link rel="import" href="../app/components/polymer/polymer.html" />
+<link rel="import" href="../bower_components/polymer/polymer.html" />
 <link rel="import" href="scoreControls.html" />
 <link rel="import" href="scoreBody.html" />
-<polymer-element name="smw-score">
+<polymer-element name="smw-score" noscript>
     <template>
         <style>
             :host {
                 display: block;
             }
         </style>
-        <smw-scoreControls></smw-scoreControls>
-        <smw-scoreBody id="scoreBody"></smw-scoreBody>
+        <smw-score-controls></smw-score-controls>
+        <smw-score-body id="scoreBody"></smw-score-body>
     </template>
-    <script>
-        (function() {
-            'use strict';
-            Polymer('smw-score');
-        })();
-    </script>
 </polymer-element>

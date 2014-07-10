@@ -1,6 +1,6 @@
-<link rel="import" href="../app/components/polymer/polymer.html" />
-<link rel="import" href="../app/components/polymer-ui-collapsible/polymer-ui-collapsible.html">
-<polymer-element name="smw-scoreControls">
+<link rel="import" href="../bower_components/polymer/polymer.html" />
+<link rel="import" href="../bower_components/polymer-ui-collapsible/polymer-ui-collapsible.html">
+<polymer-element name="smw-score-controls">
     <template>
         <style>
             :host {
@@ -24,7 +24,7 @@
     <script>
         (function() {
             'use strict';
-            Polymer('smw-scoreControls', {
+            Polymer('smw-score-controls', {
                 addMeasureClicked: function(e) {
                     e.preventDefault();
                     this.asyncFire('polymer-signal', {
