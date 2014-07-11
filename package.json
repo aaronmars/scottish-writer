@@ -20,11 +20,11 @@
   },
   "homepage": "https://github.com/aaronmars/scottish-writer",
   "devDependencies": {
-    "bower": "~1.3",
-    "browser-sync": "^1.1.1",
-    "gulp": "~3.7",
-    "gulp-jscs": "~0.4.2",
-    "gulp-jshint": "~1.5.5",
-    "gulp-uglify": "~0.2.1"
+    "bower": "*",
+    "browser-sync": "*",
+    "gulp": "*",
+    "gulp-jscs": "*",
+    "gulp-jshint": "*",
+    "gulp-uglify": "*"
   }
 }
