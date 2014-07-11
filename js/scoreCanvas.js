@@ -1,4 +1,4 @@
-/* jshint camelcase: false */
+/*jshint camelcase: false */
 (function() {
     'use strict';
     var _leftOffset = 0;
@@ -54,18 +54,17 @@
             this.drawScore();
         },
         drawScore: function() {
-            var score = this.data;
+            /*var score = this.data;
             this.vexContext.clear();
             if(!('staves' in score)) {
                 return;
             }
-            var staffIndex = 0;
             score.staves.forEach(function(staff, staffIndex) {
                 this.drawStaff(staff, staffIndex);
-            }, this);
+            }, this);*/
         },
         drawStaff: function(staff, index) {
-            if(!('measures' in staff)) {
+            /*if(!('measures' in staff)) {
                 return;
             }
             var topOffset = _topOffset + (index * _staffHeight);
@@ -74,10 +73,10 @@
                 var isLast = measureIndex === measureArray.length - 1;
                 var drawTimeSig = (index === 0 && measureIndex === 0);
                 this.drawMeasure(measure, topOffset, measureIndex, drawTimeSig, isLast);
-            }, this);
+            }, this);*/
         },
         drawMeasure: function(measure, top, index, ts, lastMeasure) {
-            var leftOffset = _leftOffset + (index * _measureWidth);
+            /*var leftOffset = _leftOffset + (index * _measureWidth);
             var stave = new Vex.Flow.Stave(leftOffset, top, _measureWidth);
             stave.setNumLines(this.staffConfig.length).setConfigForLines(this.staffConfig);
             if(index > 0) {
@@ -90,10 +89,10 @@
             stave.setContext(this.vexContext).draw();
             if('notes' in measure) {
                 this.drawNotes(measure.notes, stave, lastMeasure);
-            }
+            }*/
         },
         drawNotes: function(notes, stave, lastMeasure) {
-            var vexNotes = [];
+            /*var vexNotes = [];
             var ties = [];
             notes.forEach(function(note, index, noteArray) {
                 var noteSpec = {
@@ -168,7 +167,7 @@
             }, this);
             ties.forEach(function(tie) {
                 tie.setContext(this.vexContext).draw();
-            }, this);
+            }, this);*/
         }
     });
 })();

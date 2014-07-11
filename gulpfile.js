@@ -6,7 +6,7 @@
     var browserSync = require('browser-sync');
     gulp.task('inspect', function() {
         return gulp.src([ 'js/**/*.js', 'gulpfile.js' ])
-            .pipe(jshint())
+            .pipe(jshint({ camelcase: false }))
             .on('error', function() {})
             .pipe(jshint.reporter('default'))
             .pipe(jscs())

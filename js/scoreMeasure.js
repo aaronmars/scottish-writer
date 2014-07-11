@@ -11,10 +11,12 @@
             if((this.index % measuresPerStaff) === 0) {
                 this.staffIndex = this.index / measuresPerStaff;
                 this.firstInStaff = true;
-            } else if((this.index % measuresPerStaff) === (measuresPerStaff -1)) {
+            } else if((this.index % measuresPerStaff) === (measuresPerStaff - 1)) {
                 this.lastInStaff = true;
             }
+            console.log(this.width);
             _measureIndex++;
+            //var stave = new Vex.Flow.Stave(leftOffset, top, _measureWidth);
         }
     });
 })();
