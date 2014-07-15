@@ -6,7 +6,7 @@
     var browserSync = require('browser-sync');
     gulp.task('inspect', function() {
         return gulp.src([ 'js/**/*.js', 'gulpfile.js' ])
-            .pipe(jshint({ camelcase: false }))
+            .pipe(jshint())
             .on('error', function() {})
             .pipe(jshint.reporter('default'))
             .pipe(jscs())
@@ -15,7 +15,7 @@
     gulp.task('watch', [ 'inspect' ], function() {
         gulp.watch('**/*.js', [ 'inspect' ]);
     });
-    gulp.task('browserReload', function() {
+    gulp.task('browserReload', [ 'inspect' ], function() {
         browserSync.reload();
     });
     gulp.task('serve', function() {
@@ -24,7 +24,7 @@
                 baseDir: './'
             }
         });
-        gulp.watch([ 'elements/*', 'js/*' ], [ 'browserReload' ]);
+        gulp.watch([ 'elements/*', 'js/*', 'testData/*' ], [ 'browserReload' ]);
     });
     gulp.task('default', [ 'inspect' ]);
 })();

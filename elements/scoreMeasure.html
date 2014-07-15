@@ -1,12 +1,9 @@
-<link rel="import" href="../bower_components/polymer/polymer.html" />
+<link rel="import" href="../app/components/polymer/polymer.html" />
 <link rel="import" href="scoreNote.html" />
-<polymer-element name="smw-score-measure" attributes="data context settings">
+<polymer-element name="smw-score-measure" attributes="data context settings width">
       <template>
           <template repeat="{{ note in data.notes }}">
-              <smw-score-note
-                  data="{{ note }}"
-                  context="{{ context }}">
-              </smw-score-note>
+              <smw-score-note id="scorenote" data="{{ note }}" context="{{ context }}"></smw-score-note>
           </template>
       </template>
       <script src="../js/scoreMeasure.js"></script>

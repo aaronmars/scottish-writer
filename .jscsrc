@@ -1,4 +1,3 @@
-
 {
     "requireCurlyBraces": [
         "if",
@@ -112,7 +111,7 @@
         "binary",
         "string"
     ],
-    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
     "disallowKeywords": [
         "with"
     ],

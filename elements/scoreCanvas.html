@@ -1,13 +1,18 @@
-<link rel="import" href="../bower_components/polymer/polymer.html" />
-<link rel="import" href="../bower_components/polymer-signals/polymer-signals.html" />
+<link rel="import" href="../app/components/polymer/polymer.html" />
+<link rel="import" href="../app/components/polymer-signals/polymer-signals.html" />
 <link rel="import" href="scoreStaff.html" />
-<script src="../bower_components/vexflow/build/vexflow/vexflow-min.js"></script>
+<script src="../app/components/vexflow/build/vexflow/vexflow-min.js"></script>
 <polymer-element name="smw-score-canvas" attributes="data settings width height">
     <template>
         <polymer-signals on-polymer-signal-music="{{ musicChanged }}"></polymer-signals>
         <canvas id="vexflowCanvas" width="{{ width }}" height="{{ height }}"></canvas>
         <template repeat="{{ staff in data.staves }}">
-            <smw-score-staff data="{{ staff }}" context="{{ vexContext }}" settings="{{ settings }}"></smw-score-staff>
+            <smw-score-staff
+                data="{{ staff }}"
+                context="{{ vexContext }}"
+                settings="{{ settings }}"
+                width="{{ width }}">
+            </smw-score-staff>
         </template>
     </template>
     <script src="../js/scoreCanvas.js"></script>

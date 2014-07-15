@@ -3,6 +3,7 @@
         "Vex": false,
         "Polymer": false
     },
+    "camelcase": false,
     "curly": true,
     "eqeqeq": true,
     "forin": true,

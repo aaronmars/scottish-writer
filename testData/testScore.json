@@ -15,6 +15,7 @@
             {
                 "measures": [
                     {
+                        "beginningBar": "repeatBegin",
                         "notes": [
                             { "hand": "r", "value": 8, "flam": true, "accent": true },
                             { "hand": "l", "value": 8 },
@@ -95,6 +96,7 @@
                         { "hand": "r", "value": 8, "accent": true }
                     ]
                 }, {
+                    "endingBar": "repeatEnd",
                     "notes": [
                         { "hand": "l", "value": 8, "flam": true, "accent": true },
                         { "hand": "r", "value": 8 },
@@ -102,6 +104,96 @@
                         { "hand": "r", "value": 4, "dots": 1, "rollHashes": 3, "rollStart": true }
                     ]
                 } ]
+            },
+            {
+                "measures": [
+                    {
+                        "beginningBar": "repeatBegin",
+                        "notes": [
+                            { "hand": "r", "value": 8, "accent": true, "rollEnd": true },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8, "flam": true },
+                            { "hand": "l", "value": 4, "accent": true, "flam": true, "dots": 1 }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "l", "value": 8, "accent": true, "ruff": true },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 16 },
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 16 },
+                            { "hand": "r", "value": 8 }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "l", "value": 8, "accent": true, "rollHashes": 2, "rollStart": true },
+                            { "hand": "l", "value": 8, "rollEnd": true },
+                            { "hand": "r", "value": 8, "accent": true, "rollHashes": 2, "rollStart": true },
+                            { "hand": "r", "value": 8, "accent": true, "rollHashes": 2, "rollStart": true, "rollEnd": true },
+                            { "hand": "r", "value": 8, "rollHashes": 2, "rollStart": true, "rollEnd": true },
+                            { "hand": "l", "value": 8, "accent": true, "rollHashes": 2, "rollStart": true, "rollEnd": true }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "l", "value": 8, "rollHashes": 2, "rollStart": true, "rollEnd": true },
+                            { "hand": "r", "value": 8, "rollEnd": true },
+                            { "hand": "l", "value": 8, "accent": true, "rollHashes": 2, "rollStart": true },
+                            { "hand": "l", "value": 8, "rollEnd": true },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 }
+                        ]
+                    }
+                ]
+            },
+            {
+                "measures": [
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 4 },
+                            { "hand": "r", "value": 8 }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 16 },
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 16 },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8 }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 8, "flam": true },
+                            { "hand": "l", "value": 8 },
+                            { "hand": "r", "value": 8, "drag": true },
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 16 },
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 16 },
+                            { "hand": "r", "value": 8, "accent": true }
+                        ]
+                    }, {
+                        "endingBar": "repeatEnd",
+                        "notes": [
+                            { "hand": "l", "value": 8, "flam": true, "accent": true },
+                            { "hand": "r", "value": 8 },
+                            { "hand": "l", "value": 8, "flam": true },
+                            { "hand": "r", "value": 4, "dots": 1, "rollHashes": 3, "rollStart": true }
+                        ]
+                    }
+                ]
             }
         ]
     }

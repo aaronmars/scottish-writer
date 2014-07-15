@@ -1,5 +1,5 @@
-<link rel="import" href="../bower_components/polymer/polymer.html" />
-<link rel="import" href="../bower_components/polymer-ajax/polymer-ajax.html" />
+<link rel="import" href="../app/components/polymer/polymer.html" />
+<link rel="import" href="../app/components/polymer-ajax/polymer-ajax.html" />
 <link rel="import" href="scoreSettings.html" />
 <link rel="import" href="scoreHeader.html" />
 <link rel="import" href="scoreCanvas.html" />
@@ -25,7 +25,7 @@
         </polymer-ajax>
         <smw-score-settings id="globalSettings"></smw-score-settings>
         <smw-score-header id="scoreHeader" data="{{ scoreData.header }}"></smw-score-header>
-        <smw-score-canvas id="scoreCanvas" data="{{ scoreData.music }}" settings="{{ scoreSettings }}"></smw-score-canvas>
+        <smw-score-canvas id="scoreCanvas" data="{{ scoreData.music }}" settings="{{ scoreSettings }}" width="{{ width }}"></smw-score-canvas>
     </template>
     <script>
         (function() {
@@ -34,6 +34,7 @@
                 scoreReceived: function(e) {
                     this.scoreData = e.detail.response;
                     this.scoreSettings = this.$.globalSettings.settings;
+                    this.width = (this.scoreSettings.orientation === 'portrait') ? 850 : 1100;
                 }
             });
         })();

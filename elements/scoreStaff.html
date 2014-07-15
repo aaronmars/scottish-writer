@@ -1,13 +1,13 @@
-<link rel="import" href="../bower_components/polymer/polymer.html" />
+<link rel="import" href="../app/components/polymer/polymer.html" />
 <link rel="import" href="scoreMeasure.html" />
-<polymer-element name="smw-score-staff" attributes="data context settings">
+<polymer-element name="smw-score-staff" attributes="data context settings width">
     <template>
         <template repeat="{{ measure in data.measures }}">
             <smw-score-measure
                 data="{{ measure }}"
                 context="{{ context }}"
                 settings="{{ settings }}"
-                width="{{ width }}">
+                width="{{ (width / settings.measuresPerStaff) - 1 }}">
             </smw-score-measure>
         </template>
     </template>
