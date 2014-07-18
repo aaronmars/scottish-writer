@@ -48,7 +48,7 @@
                 infoUpdated: function(e, index, element) {
                     var newValue = e.currentTarget.textContent;
                     var boundAttribute = element.dataset.fieldName;
-                    this.data.header[boundAttribute] = newValue;
+                    this.data[boundAttribute] = newValue;
                 }
             });
         })();

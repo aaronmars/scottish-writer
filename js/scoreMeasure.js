@@ -10,6 +10,7 @@
         { visible: false }
     ];
     var _barLineMap = null;
+    var _tsFractions = null;
     Polymer('smw-score-measure', {
         firstInStaff: false,
         lastInStaff: false,
@@ -28,6 +29,12 @@
                     double: Vex.Flow.Barline.type.DOUBLE,
                     end: Vex.Flow.Barline.type.END,
                     none: Vex.Flow.Barline.type.NONE
+                };
+            }
+            if(!_tsFractions) {
+                _tsFractions = {
+                    '2/4': new Vex.Flow.Fraction(2, 8),
+                    '6/8': new Vex.Flow.Fraction(2, 8)
                 };
             }
             this._notes = [];
@@ -69,8 +76,8 @@
             }
 
             // Add the time signature to the first bar in the score
+            var timeSig = this.settings.timeSignature.beats + '/' + this.settings.timeSignature.value;
             if(this.firstInStaff && staffIndex === 0) {
-                var timeSig = this.settings.timeSignature.beats + '/' + this.settings.timeSignature.value;
                 stave.addTimeSignature(timeSig);
             }
             var tsSpec = {
@@ -91,29 +98,8 @@
                 .formatToStave([ notesVoice, dymanicVoice ], stave);
             var beams = Vex.Flow.Beam.generateBeams(vexNotes, {
                 stem_direction: -1,
-                groups: [ new Vex.Flow.Fraction(3, 8) ]
+                groups: [ _tsFractions[timeSig] ]
             });
-            /*this.notes.forEach(function(note) {
-                if('chips' in note.data) {
-                    var voltaType = null;
-                    switch(note.data.chips) {
-                        case 'single':
-                            voltaType = Vex.Flow.Volta.type.BEGIN_END;
-                            break;
-                        case 'on':
-                            voltaType = Vex.Flow.Volta.type.BEGIN;
-                            break;
-                        case 'off':
-                            voltaType = Vex.Flow.Volta.type.END;
-                            break;
-                        default:
-                            voltaType = Vex.Flow.Volta.type.MID;
-                            break;
-                    }
-                    var volta = new Vex.Flow.Volta(voltaType, '', 30, 30);
-                    stave.modifiers.push(volta);
-                }
-            }, this);*/
             stave.setNumLines(_staffConfig.length).setConfigForLines(_staffConfig).setContext(this.context).draw();
             notesVoice.draw(this.context, stave);
             dymanicVoice.draw(this.context, stave);

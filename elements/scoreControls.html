@@ -1,6 +1,6 @@
 <link rel="import" href="../app/components/polymer/polymer.html" />
 <link rel="import" href="../app/components/polymer-ui-collapsible/polymer-ui-collapsible.html">
-<polymer-element name="smw-score-controls">
+<polymer-element name="smw-score-controls" attributes="{{ source }}">
     <template>
         <style>
             :host {
@@ -17,7 +17,9 @@
                 <span>Tools</span>
             </div>
             <div>
-                <a href="#" id="add-measure" on-click="{{addMeasureClicked}}">Add Measure</a>
+                <a href="#" id="add-measure" on-click="{{ addMeasureClicked }}">Add Measure</a>
+                <a href="/testData/theFuddler.json" on-click="{{ scoreSelected }}">The Fuddler</a>
+                <a href="/testData/edinburghPolicePipers.json" on-click="{{ scoreSelected }}">Edinburgh Police</a>
             </div>
         </polymer-ui-collapsible>
     </template>
@@ -25,6 +27,7 @@
         (function() {
             'use strict';
             Polymer('smw-score-controls', {
+                source: '',
                 addMeasureClicked: function(e) {
                     e.preventDefault();
                     this.asyncFire('polymer-signal', {
@@ -33,6 +36,10 @@
                             command: 'add-bar'
                         }
                     });
+                },
+                scoreSelected: function(e, num, link) {
+                    e.preventDefault();
+                    this.source = link.href;
                 }
             });
         })();

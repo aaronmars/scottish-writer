@@ -19,7 +19,6 @@
     "vexflow": "*",
     "polymer": "Polymer/polymer#*",
     "polymer-ui-collapsible": "Polymer/polymer-ui-collapsible#*",
-    "polymer-ajax": "Polymer/polymer-ajax#*",
-    "polymer-signals": "Polymer/polymer-signals#*"
+    "core-ajax": "Polymer/core-ajax#*"
   }
 }
