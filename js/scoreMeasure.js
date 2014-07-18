@@ -11,7 +11,6 @@
     ];
     var _barLineMap = null;
     Polymer('smw-score-measure', {
-        index: 0,
         firstInStaff: false,
         lastInStaff: false,
         get notes() {
@@ -36,22 +35,25 @@
             _measureIndex++;
         },
         ready: function() {
-            var vexNotes = this.notes.map(function(note) {
-                return note.vexNote;
-            }, this);
-            this.index = this.scoreIndex % this.settings.measuresPerStaff;
-            this.staffIndex = Math.floor(this.scoreIndex / this.settings.measuresPerStaff);
-            if(this.index === 0) {
+            var index = this.scoreIndex % this.settings.measuresPerStaff;
+            var staffIndex = Math.floor(this.scoreIndex / this.settings.measuresPerStaff);
+            if(index === 0) {
                 this.firstInStaff = true;
-            } else if(this.index === this.settings.measuresPerStaff - 1) {
+            } else if(index === this.settings.measuresPerStaff - 1) {
                 this.lastInStaff = true;
             }
             if(this.settings.instrument === 'snare') {
                 _staffConfig[2].visible = true;
             }
+
+            // Adjust the left offset in case of a thick beginning bar line
+            var left = this.width * index;
+            if(this.firstInStaff) {
+                left += 2;
+            }
             var stave = new Vex.Flow.Stave(
-                this.width * this.index,
-                this.settings.staffHeight * this.staffIndex,
+                left,
+                this.settings.staffHeight * staffIndex,
                 this.width
             );
 
@@ -67,24 +69,54 @@
             }
 
             // Add the time signature to the first bar in the score
-            if(this.firstInStaff && this.staffIndex === 0) {
+            if(this.firstInStaff && staffIndex === 0) {
                 var timeSig = this.settings.timeSignature.beats + '/' + this.settings.timeSignature.value;
-                stave.addTimeSignature(timeSig, 100);
+                stave.addTimeSignature(timeSig);
             }
-
-            // Draw the single staff correspondign to the measure.
-            stave.setNumLines(_staffConfig.length)
-                .setConfigForLines(_staffConfig)
-                .setContext(this.context)
-                .draw();
-
-            // Draw note beams here since they involve multiple notes, but don't
-            //  cross measure boudaries.
+            var tsSpec = {
+                num_beats: this.settings.timeSignature.beats,
+                beat_value: this.settings.timeSignature.value,
+                resolution: Vex.Flow.RESOLUTION
+            };
+            var vexNotes = [];
+            var dymanics = [];
+            this.notes.forEach(function(note) {
+                vexNotes.push(note.vexNote);
+                dymanics.push(note.dynamic);
+            }, this);
+            var notesVoice = new Vex.Flow.Voice(tsSpec).addTickables(vexNotes);
+            var dymanicVoice = new Vex.Flow.Voice(tsSpec).addTickables(dymanics);
+            (new Vex.Flow.Formatter())
+                .joinVoices([ notesVoice, dymanicVoice ])
+                .formatToStave([ notesVoice, dymanicVoice ], stave);
             var beams = Vex.Flow.Beam.generateBeams(vexNotes, {
                 stem_direction: -1,
                 groups: [ new Vex.Flow.Fraction(3, 8) ]
             });
-            Vex.Flow.Formatter.FormatAndDraw(this.context, stave, vexNotes, 0);
+            /*this.notes.forEach(function(note) {
+                if('chips' in note.data) {
+                    var voltaType = null;
+                    switch(note.data.chips) {
+                        case 'single':
+                            voltaType = Vex.Flow.Volta.type.BEGIN_END;
+                            break;
+                        case 'on':
+                            voltaType = Vex.Flow.Volta.type.BEGIN;
+                            break;
+                        case 'off':
+                            voltaType = Vex.Flow.Volta.type.END;
+                            break;
+                        default:
+                            voltaType = Vex.Flow.Volta.type.MID;
+                            break;
+                    }
+                    var volta = new Vex.Flow.Volta(voltaType, '', 30, 30);
+                    stave.modifiers.push(volta);
+                }
+            }, this);*/
+            stave.setNumLines(_staffConfig.length).setConfigForLines(_staffConfig).setContext(this.context).draw();
+            notesVoice.draw(this.context, stave);
+            dymanicVoice.draw(this.context, stave);
             beams.forEach(function(beam) {
                 beam.setContext(this.context).draw();
             }, this);
