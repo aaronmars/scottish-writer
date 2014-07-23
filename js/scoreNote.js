@@ -14,9 +14,6 @@
         weight: 'bold italic'
     };
     Polymer('smw-score-note', {
-        created: function() {
-            this._noteVoices = {};
-        },
         _calculateNote: function() {
             var thisDuration = this.data.value.toString();
             var noteSpec = { keys: [ _noteMapping[this.data.hand] ], duration: thisDuration };

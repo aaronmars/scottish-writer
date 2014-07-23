@@ -34,7 +34,7 @@
             if(!_tsFractions) {
                 _tsFractions = {
                     '2/4': new Vex.Flow.Fraction(2, 8),
-                    '6/8': new Vex.Flow.Fraction(2, 8)
+                    '6/8': new Vex.Flow.Fraction(3, 8)
                 };
             }
             this._notes = [];
@@ -85,24 +85,46 @@
                 beat_value: this.settings.timeSignature.value,
                 resolution: Vex.Flow.RESOLUTION
             };
-            var vexNotes = [];
-            var dymanics = [];
+            var notes = { vex: [], dynamics: [] };
+            var tuplets = { notes: [], dynamics: [] };
             this.notes.forEach(function(note) {
-                vexNotes.push(note.vexNote);
-                dymanics.push(note.dynamic);
+                if('tuplet' in note.data && note.data.tuplet === true) {
+                    tuplets.notes.push(note.vexNote);
+                    tuplets.dynamics.push(note.dynamic);
+                }
+                notes.vex.push(note.vexNote);
+                notes.dynamics.push(note.dynamic);
             }, this);
-            var notesVoice = new Vex.Flow.Voice(tsSpec).addTickables(vexNotes);
-            var dymanicVoice = new Vex.Flow.Voice(tsSpec).addTickables(dymanics);
-            (new Vex.Flow.Formatter())
-                .joinVoices([ notesVoice, dymanicVoice ])
-                .formatToStave([ notesVoice, dymanicVoice ], stave);
-            var beams = Vex.Flow.Beam.generateBeams(vexNotes, {
+            var vexTuplets = null;
+            if(tuplets.notes.length > 0) {
+                vexTuplets = {
+                    notes: new Vex.Flow.Tuplet(tuplets.notes),
+                    dynamics: new Vex.Flow.Tuplet(tuplets.dynamics)
+                };
+            }
+            var voices = {
+                notes: new Vex.Flow.Voice(tsSpec).setStrict(true).addTickables(notes.vex),
+                dynamics: new Vex.Flow.Voice(tsSpec).setStrict(true).addTickables(notes.dynamics)
+            };
+            var formatter = new Vex.Flow.Formatter();
+            formatter.joinVoices([ voices.notes, voices.dynamics ])
+                .formatToStave([ voices.notes, voices.dynamics ], stave);
+            var beams = Vex.Flow.Beam.generateBeams(notes.vex, {
                 stem_direction: -1,
                 groups: [ _tsFractions[timeSig] ]
             });
-            stave.setNumLines(_staffConfig.length).setConfigForLines(_staffConfig).setContext(this.context).draw();
-            notesVoice.draw(this.context, stave);
-            dymanicVoice.draw(this.context, stave);
+
+            // Draw the staff, notes, tuplets, and beams
+            stave.setNumLines(_staffConfig.length)
+                .setConfigForLines(_staffConfig)
+                .setContext(this.context)
+                .draw();
+
+            voices.notes.draw(this.context, stave);
+            voices.dynamics.draw(this.context, stave);
+            if(vexTuplets) {
+                vexTuplets.notes.setContext(this.context).draw();
+            }
             beams.forEach(function(beam) {
                 beam.setContext(this.context).draw();
             }, this);

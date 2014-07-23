@@ -30,12 +30,13 @@
                     },
                     {
                         "notes": [
-                            { "hand": "r", "value": 16, "flam": true, "accent": true },
-                            { "hand": "l", "value": 16 },
-                            { "hand": "l", "value": 16 },
                             { "hand": "r", "value": 16 },
-                            { "hand": "l", "value": 8, "accent": true },
-                            { "hand": "r", "value": 32 },
+                            { "hand": "l", "value": 16, "accent": true },
+                            { "hand": "r", "value": 16, "tuplet": true },
+                            { "hand": "l", "value": 16, "tuplet": true },
+                            { "hand": "r", "value": 16, "tuplet": true },
+                            { "hand": "r", "value": 8, "accent": true, "rollHashes": 2, "tieStart": true },
+                            { "hand": "r", "value": 32, "tieEnd": true },
                             { "hand": "l", "value": 32 },
                             { "hand": "r", "value": 32 },
                             { "hand": "l", "value": 32 }
@@ -44,22 +45,37 @@
                     {
                         "notes": [
                             { "hand": "r", "value": 8, "accent": true },
-                            { "hand": "r", "value": 16, "tieStart": true, "rollHashes": 2, "accent": true },
+                            { "hand": "r", "value": 16, "accent": true, "rollHashes": 2, "tieStart": true },
                             { "hand": "r", "value": 16, "tieEnd": true },
-                            { "hand": "l", "value": 16 },
-                            { "hand": "r", "value": 16, "tieStart": true, "rollHashes": 2, "accent": true },
+                            { "hand": "l", "value": 16, "flam": true },
+                            { "hand": "r", "value": 16, "accent": true, "rollHashes": 2, "tieStart": true },
                             { "hand": "r", "value": 16, "tieEnd": true },
                             { "hand": "l", "value": 16 }
                         ]
                     },
                     {
                         "notes": [
-                            { "hand": "r", "value": 8, "flam": true },
+                            { "hand": "r", "value": 8 },
                             { "hand": "l", "value": 16, "ruff": true },
                             { "hand": "l", "value": 16, "flam": true, "accent": true },
-                            { "hand": "r", "value": 16 },
+                            { "hand": "r", "value": 16, "tuplet": true },
+                            { "hand": "l", "value": 16, "tuplet": true },
+                            { "hand": "r", "value": 16, "tuplet": true },
+                            { "hand": "l", "value": 8, "accent": true, "rollHashes": 2, "tieStart": true }
+                        ]
+                    }
+                ],
+                "measures": [
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 8, "flam": true, "accent": true },
+                            { "hand": "r", "value": 32 },
+                            { "hand": "l", "value": 32 },
+                            { "hand": "r", "value": 32 },
+                            { "hand": "l", "value": 32 },
+                            { "hand": "r", "value": 8, "tieStart": true, "rollHashes": 2 },
                             { "hand": "l", "value": 16 },
-                            { "hand": "l", "value": 8 }
+                            { "hand": "r", "value": 16, "drag": true }
                         ]
                     }
                 ]
