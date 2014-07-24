@@ -64,11 +64,13 @@
                             { "hand": "l", "value": 8, "accent": true, "rollHashes": 2, "tieStart": true }
                         ]
                     }
-                ],
+                ]
+            },
+            {
                 "measures": [
                     {
                         "notes": [
-                            { "hand": "r", "value": 8, "flam": true, "accent": true },
+                            { "hand": "r", "value": 8, "accent": true },
                             { "hand": "r", "value": 32 },
                             { "hand": "l", "value": 32 },
                             { "hand": "r", "value": 32 },
