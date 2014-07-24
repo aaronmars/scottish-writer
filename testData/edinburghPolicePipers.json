@@ -76,8 +76,44 @@
                             { "hand": "r", "value": 32 },
                             { "hand": "l", "value": 32 },
                             { "hand": "r", "value": 8, "tieStart": true, "rollHashes": 2 },
+                            { "hand": "l", "value": 16, "tieEnd": true, "tuplet": true },
+                            { "hand": "r", "value": 16, "tuplet": true },
+                            { "hand": "l", "value": 16, "tuplet": true }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 16, "drag": true },
+                            { "hand": "r", "value": 16, "accent": true },
                             { "hand": "l", "value": 16 },
-                            { "hand": "r", "value": 16, "drag": true }
+                            { "hand": "r", "value": 16, "drag": true },
+                            { "hand": "r", "value": 32 },
+                            { "hand": "l", "value": 32 },
+                            { "hand": "r", "value": 32 },
+                            { "hand": "l", "value": 32 },
+                            { "hand": "r", "value": 8 }
+                        ]
+                    },
+                    {
+                        "notes": [
+                            { "hand": "r", "value": 16, "flam": true, "accent": true },
+                            { "hand": "l", "value": 16 },
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 32, "flam": true },
+                            { "hand": "r", "value": 32 },
+                            { "hand": "l", "value": 32 },
+                            { "hand": "r", "value": 32 },
+                            { "hand": "l", "value": 16, "accent": true },
+                            { "hand": "r", "value": 16 },
+                            { "hand": "l", "value": 16 }
+                        ]
+                    },
+                    {
+                        "endingBar": "repeatEnd",
+                        "notes": [
+                            { "hand": "r", "value": 8, "tieStart": true, "rollHashes": 2, "accent": true },
+                            { "hand": "l", "value": 8, "tieStart": true, "tieEnd": true, "rollHashes": 2, "accent": true },
+                            { "hand": "r", "value": 4, "tieEnd": true }
                         ]
                     }
                 ]

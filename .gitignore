@@ -2,6 +2,7 @@
 .codio
 .settings
 out
+.c9
 
 # Logs
 logs
