@@ -10,5 +10,4 @@ logs
 
 # Dependency directories
 node_modules
-bower_components
-app
+app/components
