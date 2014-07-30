@@ -16,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "vexflow": "*",
     "polymer": "Polymer/polymer#*",
     "polymer-ui-collapsible": "Polymer/polymer-ui-collapsible#*",
     "core-ajax": "Polymer/core-ajax#*",
