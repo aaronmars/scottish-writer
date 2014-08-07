@@ -32,6 +32,7 @@ Vex.Flow.StaveNote = (function() {
 
       this.keys = note_struct.keys;
       this.clef = note_struct.clef;
+      this.octave_shift = note_struct.octave_shift;
       this.beam = null;
 
       // Pull note rendering properties
@@ -182,10 +183,20 @@ Vex.Flow.StaveNote = (function() {
         // All rests use the same position on the line.
         // if (this.glyph.rest) key = this.glyph.position;
         if (this.glyph.rest) this.glyph.position = key;
-        var props = Vex.Flow.keyProperties(key, this.clef);
+        var options = { octave_shift: this.octave_shift || 0 };
+        var props = Vex.Flow.keyProperties(key, this.clef, options);
         if (!props) {
           throw new Vex.RuntimeError("BadArguments",
               "Invalid key for note properties: " + key);
+        }
+
+        // Override line placement for default rests
+        if (props.key === "R") {
+          if (this.duration === "1" || this.duration === "w") {
+            props.line = 4;
+          } else {
+            props.line = 3;
+          }
         }
 
         // Calculate displacement of this note
@@ -233,8 +244,8 @@ Vex.Flow.StaveNote = (function() {
 
       if (this.isRest()) {
         var y = this.ys[0];
-        if (this.duration == "w" || this.duration == "h" ||
-            this.duration == "1" || this.duration == "2") {
+        var durToInt = Vex.Flow.durationToInteger;
+        if (durToInt(this.duration) === 1 || durToInt(this.duration) === 2) {
           min_y = y - half_line_spacing;
           max_y = y + half_line_spacing;
         } else {
@@ -407,6 +418,16 @@ Vex.Flow.StaveNote = (function() {
     setKeyStyle: function(index, style) {
       this.note_heads[index].setStyle(style);
       return this;
+    },
+
+    setKeyLine: function(index, line) {
+      this.keyProps[index].line = line;
+      this.note_heads[index].setLine(line);
+      return this;
+    },
+
+    getKeyLine: function(index, line) {
+      return this.keyProps[index].line;
     },
 
     // Add self to modifier context. `mContext` is the `ModifierContext`
@@ -655,7 +676,7 @@ Vex.Flow.StaveNote = (function() {
       if (stem_struct) {
         this.setStem(new Stem(stem_struct));
       }
-      
+
       this.stem.setContext(this.context).draw();
     },
 

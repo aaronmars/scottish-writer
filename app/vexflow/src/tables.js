@@ -34,12 +34,21 @@ Vex.Flow.clefProperties.values = {
 
 /*
   Take a note in the format "Key/Octave" (e.g., "C/5") and return properties.
+  
+  The last argument, params, is a struct the currently can contain one option, 
+  octave_shift for clef ottavation (0 = default; 1 = 8va; -1 = 8vb, etc.).
 */
-Vex.Flow.keyProperties = function(key, clef) {
+Vex.Flow.keyProperties = function(key, clef, params) {
   if (clef === undefined) {
     clef = 'treble';
   }
-
+  var options = { 
+    octave_shift: 0 
+  };
+  if (typeof params == "object") {
+    Vex.Merge(options, params);
+  }
+  
   var pieces = key.split("/");
 
   if (pieces.length < 2) {
@@ -52,7 +61,11 @@ Vex.Flow.keyProperties = function(key, clef) {
   if (!value) throw new Vex.RERR("BadArguments", "Invalid key name: " + k);
   if (value.octave) pieces[1] = value.octave;
 
-  var o = pieces[1];
+  var o = parseInt(pieces[1]);
+  
+  // Octave_shift is the shift to compensate for clef 8va/8vb.
+  o += -1 * options.octave_shift; 
+
   var base_index = (o * 7) - (4 * 7);
   var line = (base_index + value.index) / 2;
   line += Vex.Flow.clefProperties(clef).line_shift;
@@ -526,13 +539,12 @@ Vex.Flow.keySignature = function(spec) {
     return [];
   }
 
-  var code = Vex.Flow.accidentalCodes.accidentals[keySpec.acc].code;
   var notes = Vex.Flow.keySignature.accidentalList(keySpec.acc);
 
   var acc_list = [];
   for (var i = 0; i < keySpec.num; ++i) {
     var line = notes[i];
-    acc_list.push({glyphCode: code, line: line});
+    acc_list.push({type: keySpec.acc, line: line});
   }
 
   return acc_list;
@@ -678,11 +690,37 @@ Vex.Flow.parseNoteData = function(noteData) {
   };
 };
 
-Vex.Flow.durationToTicks = function(duration) {
+// Used to convert duration aliases to the number based duration.
+// If the input isn't an alias, simply return the input.
+// 
+// example: 'q' -> '4', '8' -> '8'
+function sanitizeDuration(duration) {
   var alias = Vex.Flow.durationAliases[duration];
   if (alias !== undefined) {
     duration = alias;
   }
+
+  if (Vex.Flow.durationToTicks.durations[duration] === undefined) {
+    throw new Vex.RERR('BadArguments',
+      'The provided duration is not valid');
+  }
+
+  return duration;
+}
+
+// Convert the `duration` to a fraction
+Vex.Flow.durationToFraction = function(duration) {
+  return new Vex.Flow.Fraction(Vex.Flow.durationToTicks(duration), 1);
+};
+
+// Convert the `duration` to an integer
+Vex.Flow.durationToInteger = function(duration) {
+  return parseInt(sanitizeDuration(duration));
+};
+
+// Convert the `duration` to total ticks
+Vex.Flow.durationToTicks = function(duration) {
+  duration = sanitizeDuration(duration);
 
   var ticks = Vex.Flow.durationToTicks.durations[duration];
   if (ticks === undefined) {
