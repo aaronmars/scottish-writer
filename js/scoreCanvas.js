@@ -13,7 +13,7 @@
             this.data = {};
         },
         ready: function() {
-            var backend = Vex.Flow.Renderer.Backends.CANVAS;
+            var backend = Vex.Flow.Renderer.Backends.RAPHAEL;
             var renderer = new Vex.Flow.Renderer(this.$.vexflowCanvas, backend);
             this.vexContext = renderer.getContext();
             this.vexContext.scale(0.5, 0.5);

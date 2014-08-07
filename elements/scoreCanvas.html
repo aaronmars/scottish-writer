@@ -1,5 +1,6 @@
 <link rel="import" href="../app/components/polymer/polymer.html" />
 <link rel="import" href="scoreStaff.html" />
+<script src="../app/components/raphael/raphael-min.js"></script>
 <script src="../app/vexflow/build/vexflow/vexflow-debug.js"></script>
 <polymer-element name="smw-score-canvas" attributes="data settings width height">
     <template>
@@ -9,8 +10,7 @@
                 height: {{ height }}px;
             }
         </style>
-        <canvas id="vexflowCanvas" class="main-canvas" width="{{ width }}" height="{{ height }}"></canvas>
-        <!--<canvas id="vexflowCanvas" class="main-canvas"></canvas>-->
+        <div id="vexflowCanvas" class="main-canvas"></div>
         <template repeat="{{ staff in data.staves }}">
             <smw-score-staff
                 data="{{ staff }}"
