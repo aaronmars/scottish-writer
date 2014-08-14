@@ -11,6 +11,10 @@ Vex.Flow.Annotation = (function() {
   function Annotation(text) {
     if (arguments.length > 0) this.init(text);
   }
+<<<<<<< HEAD
+=======
+  Annotation.CATEGORY = "annotations";
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 
   // To enable logging for this class. Set `Vex.Flow.Annotation.DEBUG` to `true`.
   function L() { if (Annotation.DEBUG) Vex.L("Vex.Flow.Annotation", arguments); }
@@ -30,6 +34,31 @@ Vex.Flow.Annotation = (function() {
     CENTER_STEM: 4
   };
 
+<<<<<<< HEAD
+=======
+  // Arrange annotations within a `ModifierContext`
+  Annotation.format = function(annotations, state) {
+    if (!annotations || annotations.length === 0) return false;
+
+    var text_line = state.text_line;
+    var max_width = 0;
+
+    // Format Annotations
+    var width;
+    for (var i = 0; i < annotations.length; ++i) {
+      var annotation = annotations[i];
+      annotation.setTextLine(text_line);
+      width = annotation.getWidth() > max_width ?
+        annotation.getWidth() : max_width;
+      text_line++;
+    }
+
+    state.left_shift += width / 2;
+    state.right_shift += width / 2;
+    return true;
+  }
+
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
   // ## Prototype Methods
   //
   // Annotations inherit from `Modifier` and is positioned correctly when
@@ -56,10 +85,13 @@ Vex.Flow.Annotation = (function() {
       this.setWidth(Vex.Flow.textWidth(text));
     },
 
+<<<<<<< HEAD
     // Return the modifier type. Used by the `ModifierContext` to calculate
     // layout.
     getCategory: function() { return "annotations"; },
 
+=======
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     // Set the vertical position of the text relative to the stave.
     setTextLine: function(line) { this.text_line = line; return this; },
 

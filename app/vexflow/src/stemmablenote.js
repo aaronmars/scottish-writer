@@ -2,7 +2,11 @@
 //
 // ## Description
 //
+<<<<<<< HEAD
 // `StemmableNote` is an abstract interface for notes with optional stems. 
+=======
+// `StemmableNote` is an abstract interface for notes with optional stems.
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 // Examples of stemmable notes are `StaveNote` and `TabNote`
 Vex.Flow.StemmableNote = (function(){
   var StemmableNote = function(note_struct) {
@@ -21,7 +25,11 @@ Vex.Flow.StemmableNote = (function(){
       this.stem = null;
       this.stem_extension_override = null;
       this.beam = null;
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     },
 
     // Get and set the note's `Stem`
@@ -53,7 +61,12 @@ Vex.Flow.StemmableNote = (function(){
 
     // Get the minimum length of stem
     getStemMinumumLength: function() {
+<<<<<<< HEAD
       var length = Vex.Flow.durationToInteger(this.duration) === 1 ? 0 : 20;
+=======
+      var frac = Vex.Flow.durationToFraction(this.duration);
+      var length = (frac.value() <= 1) ? 0 : 20;
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
       // if note is flagged, cannot shorten beam
       switch (this.duration) {
        case "8":

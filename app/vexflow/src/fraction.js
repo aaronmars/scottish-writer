@@ -183,20 +183,57 @@ Vex.Flow.Fraction = (function() {
     },
 
 
+<<<<<<< HEAD
     // Simplifies both sides and checks if they are equal
+=======
+    // Simplifies both sides and checks if they are equal.
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     equals: function(compare) {
       var a = Vex.Flow.Fraction.__compareA.copy(compare).simplify();
       var b = Vex.Flow.Fraction.__compareB.copy(this).simplify();
 
       return (a.numerator === b.numerator) && (a.denominator === b.denominator);
     },
+<<<<<<< HEAD
 
     // Creates a new copy with this current values
+=======
+    
+    // Greater than operator.
+    greaterThan: function(compare) {
+      var a = Vex.Flow.Fraction.__compareB.copy(this);
+      a.subtract(compare);
+      return (a.numerator > 0);
+    },
+    
+    // Greater than or equals operator.
+    greaterThanEquals: function(compare) {
+      var a = Vex.Flow.Fraction.__compareB.copy(this);
+      a.subtract(compare);
+      return (a.numerator >= 0);
+    },
+
+    // Less than operator.
+    lessThan: function(compare) {
+      return !(this.greaterThanEquals(compare));  
+    },
+
+    // Less than or equals operator.
+    lessThanEquals: function(compare) {
+      return !(this.greaterThan(compare));  
+    },
+
+    // Creates a new copy with this current values.
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     clone: function() {
       return new Vex.Flow.Fraction(this.numerator, this.denominator);
     },
 
+<<<<<<< HEAD
     // Copies value of another Fraction into itself
+=======
+    // Copies value of another Fraction into itself.
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     copy: function(copy) {
       return this.set(copy.numerator, copy.denominator);
     },

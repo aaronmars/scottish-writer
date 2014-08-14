@@ -139,34 +139,59 @@ Vex.Flow.Voice = (function() {
       if (!tickable.shouldIgnoreTicks()) {
         var ticks = tickable.getTicks();
 
+<<<<<<< HEAD
         // Update the total ticks for this line
+=======
+        // Update the total ticks for this line.
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
         this.ticksUsed.add(ticks);
 
         if ((this.mode == Vex.Flow.Voice.Mode.STRICT ||
              this.mode == Vex.Flow.Voice.Mode.FULL) &&
+<<<<<<< HEAD
              this.ticksUsed.value() > this.totalTicks.value()) {
+=======
+             this.ticksUsed.greaterThan(this.totalTicks)) {
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
           this.totalTicks.subtract(ticks);
           throw new Vex.RERR("BadArgument", "Too many ticks.");
         }
 
+<<<<<<< HEAD
         // Track the smallest tickable for formatting
         if (ticks.value() < this.smallestTickCount.value()) {
+=======
+        // Track the smallest tickable for formatting.
+        if (ticks.lessThan(this.smallestTickCount)) {
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
           this.smallestTickCount = ticks.clone();
         }
 
         this.resolutionMultiplier = this.ticksUsed.denominator;
 
+<<<<<<< HEAD
         // Expand total ticks using denominator from ticks used
         this.totalTicks.add(0, this.ticksUsed.denominator);
       }
 
       // Add the tickable to the line
+=======
+        // Expand total ticks using denominator from ticks used.
+        this.totalTicks.add(0, this.ticksUsed.denominator);
+      }
+
+      // Add the tickable to the line.
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
       this.tickables.push(tickable);
       tickable.setVoice(this);
       return this;
     },
 
+<<<<<<< HEAD
     // Add an array of tickables to the voice
+=======
+    // Add an array of tickables to the voice.
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     addTickables: function(tickables) {
       for (var i = 0; i < tickables.length; ++i) {
         this.addTickable(tickables[i]);
@@ -175,7 +200,11 @@ Vex.Flow.Voice = (function() {
       return this;
     },
 
+<<<<<<< HEAD
     // Preformats the voice by applying the voice's stave to each note
+=======
+    // Preformats the voice by applying the voice's stave to each note.
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     preFormat: function(){
       if (this.preFormatted) return;
 

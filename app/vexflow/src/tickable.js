@@ -24,6 +24,12 @@ Vex.Flow.Tickable = (function() {
       this.preFormatted = false;
       this.postFormatted = false;
       this.tuplet = null;
+<<<<<<< HEAD
+=======
+      
+      this.align_center = false;
+      this.center_x_shift = 0 // Shift from tick context if center aligned
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 
       // This flag tells the formatter to ignore this tickable during
       // formatting and justification. It is set by tickables such as BarNote.
@@ -37,6 +43,22 @@ Vex.Flow.Tickable = (function() {
     shouldIgnoreTicks: function() { return this.ignore_ticks; },
     getWidth: function() { return this.width; },
     setXShift: function(x) { this.x_shift = x; },
+<<<<<<< HEAD
+=======
+    getCenterXShift: function() {
+      if (this.isCenterAligned()) {
+        return this.center_x_shift;
+      }
+
+      return 0;
+    },
+
+    isCenterAligned: function() { return this.align_center; },
+    setCenterAlignment: function(align_center) {
+      this.align_center = align_center;
+      return this;
+    },
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 
     // Every tickable must be associated with a voice. This allows formatters
     // and preFormatter to associate them with the right modifierContexts.
@@ -121,6 +143,14 @@ Vex.Flow.Tickable = (function() {
     applyTickMultiplier: function(numerator, denominator) {
       this.tickMultiplier.multiply(numerator, denominator);
       this.ticks = this.tickMultiplier.clone().multiply(this.intrinsicTicks);
+<<<<<<< HEAD
+=======
+    },
+    setDuration: function(duration) {
+      var ticks = duration.numerator * (Vex.Flow.RESOLUTION / duration.denominator);
+      this.ticks = this.tickMultiplier.clone().multiply(ticks);
+      this.intrinsicTicks = this.ticks.value();
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     }
   };
 

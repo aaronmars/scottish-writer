@@ -1,12 +1,26 @@
+<<<<<<< HEAD
 // VexFlow - Music Engraving for HTML5
 // Copyright Mohit Muthanna 2010
 // Author Larry Kuhns 2013
 // Class implements chord strokes - arpeggiated, brush & rasquedo.
+=======
+// [VexFlow](http://vexflow.com) - Copyright (c) Mohit Muthanna 2010.
+// Author: Larry Kuhns
+//
+// ## Description
+//
+// This file implements the `Stroke` class which renders chord strokes
+// that can be arpeggiated, brushed, rasquedo, etc.
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 
 Vex.Flow.Stroke = (function() {
   function Stroke(type, options) {
     if (arguments.length > 0) this.init(type, options);
   }
+<<<<<<< HEAD
+=======
+  Stroke.CATEGORY = "strokes";
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 
   Stroke.Type = {
     BRUSH_DOWN: 1,
@@ -18,6 +32,52 @@ Vex.Flow.Stroke = (function() {
   };
 
   var Modifier = Vex.Flow.Modifier;
+<<<<<<< HEAD
+=======
+
+  // ## Static Methods
+
+  // Arrange strokes inside `ModifierContext`
+  Stroke.format = function(strokes, state) {
+    var left_shift = state.left_shift;
+    var stroke_spacing = 0;
+
+    if (!strokes || strokes.length === 0) return this;
+
+    var str_list = [];
+    var i, str, shift;
+    for (i = 0; i < strokes.length; ++i) {
+      str = strokes[i];
+      var note = str.getNote();
+      var props;
+      if (note instanceof Vex.Flow.StaveNote) {
+        props = note.getKeyProps()[str.getIndex()];
+        shift = (props.displaced ? note.getExtraLeftPx() : 0);
+        str_list.push({ line: props.line, shift: shift, str: str });
+      } else {
+        props = note.getPositions()[str.getIndex()];
+        str_list.push({ line: props.str, shift: 0, str: str });
+      }
+    }
+
+    var str_shift = left_shift;
+    var x_shift = 0;
+
+    // There can only be one stroke .. if more than one, they overlay each other
+    for (i = 0; i < str_list.length; ++i) {
+      str = str_list[i].str;
+      shift = str_list[i].shift;
+
+      str.setXShift(str_shift + shift);
+      x_shift = Math.max(str.getWidth() + stroke_spacing, x_shift);
+    }
+
+    state.left_shift += x_shift;
+    return true;
+  }
+
+  // ## Prototype Methods
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
   Vex.Inherit(Stroke, Modifier, {
     init: function(type, options) {
       Stroke.superclass.init.call(this);
@@ -51,7 +111,10 @@ Vex.Flow.Stroke = (function() {
       this.setWidth(10);
     },
 
+<<<<<<< HEAD
     getCategory: function() { return "strokes"; },
+=======
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     getPosition: function() { return this.position; },
     addEndNote: function(note) { this.note_end = note; return this; },
 

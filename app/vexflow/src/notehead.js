@@ -25,12 +25,20 @@ Vex.Flow.NoteHead = (function() {
   // * `stem_direction`: the direction of the stem
   function drawSlashNoteHead(ctx, duration, x, y, stem_direction) {
     var width = 15 + (Vex.Flow.STEM_WIDTH / 2);
+<<<<<<< HEAD
+=======
+    ctx.save();
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     ctx.setLineWidth(Vex.Flow.STEM_WIDTH);
 
     var fill = false;
 
+<<<<<<< HEAD
     if (Vex.Flow.durationToInteger(duration) !== 1 &&
         Vex.Flow.durationToInteger(duration) !== 2) {
+=======
+    if (Vex.Flow.durationToNumber(duration) > 2) {
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
       fill = true;
     }
 
@@ -47,9 +55,26 @@ Vex.Flow.NoteHead = (function() {
     if (fill) {
        ctx.fill();
     } else {
+<<<<<<< HEAD
       ctx.stroke();
     }
     ctx.setLineWidth(1);
+=======
+       ctx.stroke();
+    }
+
+    if (Vex.Flow.durationToFraction(duration).equals(0.5)) {
+      var breve_lines = [-3, -1, width + 1, width + 3];
+      for(var i=0; i<breve_lines.length; i++){
+          ctx.beginPath();
+          ctx.moveTo(x + breve_lines[i], y - 10);
+          ctx.lineTo(x + breve_lines[i], y + 11);
+          ctx.stroke();
+      }
+    }
+
+    ctx.restore();
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
   }
 
   // ## Prototype Methods
@@ -211,10 +236,19 @@ Vex.Flow.NoteHead = (function() {
           line_y -= 5;
         else if (line > 6 &&  floor - line == -0.5)
           line_y += 5;
+<<<<<<< HEAD
         ctx.fillRect(
           head_x - this.render_options.stroke_px, line_y,
           (this.getGlyph().head_width) +
           (this.render_options.stroke_px * 2), 1);
+=======
+        if (this.note_type != 'r') {
+          ctx.fillRect(
+            head_x - this.render_options.stroke_px, line_y,
+            (this.getGlyph().head_width) +
+            (this.render_options.stroke_px * 2), 1);    
+        }        
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
       }
 
       if (this.note_type == "s") {

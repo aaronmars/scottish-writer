@@ -23,6 +23,10 @@ Vex.Flow.TickContext = (function() {
       this.notePx = 0;       // width of widest note in this context
       this.extraLeftPx = 0;  // Extra left pixels for modifers & displace notes
       this.extraRightPx = 0; // Extra right pixels for modifers & displace notes
+<<<<<<< HEAD
+=======
+      this.align_center = false;
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
       
       this.tContexts = [];   // Parent array of tick contexts
 
@@ -45,6 +49,15 @@ Vex.Flow.TickContext = (function() {
     getMaxTicks: function() { return this.maxTicks; },
     getMinTicks: function() { return this.minTicks; },
     getTickables: function() { return this.tickables; },
+<<<<<<< HEAD
+=======
+    
+    getCenterAlignedTickables: function() {
+      return this.tickables.filter(function(tickable) {
+        return tickable.isCenterAligned();
+      });
+    },
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 
     // Get widths context, note and left/right modifiers for formatting
     getMetrics: function() {
@@ -87,13 +100,21 @@ Vex.Flow.TickContext = (function() {
 
         var ticks = tickable.getTicks();
 
+<<<<<<< HEAD
         if (ticks.value() > this.maxTicks.value()) {
+=======
+        if (ticks.greaterThan(this.maxTicks)) {
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
           this.maxTicks = ticks.clone();
         }
 
         if (this.minTicks == null) {
           this.minTicks = ticks.clone();
+<<<<<<< HEAD
         } else if (ticks.value() < this.minTicks.value()) {
+=======
+        } else if (ticks.lessThan(this.minTicks)) {
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
           this.minTicks = ticks.clone();
         }
       }

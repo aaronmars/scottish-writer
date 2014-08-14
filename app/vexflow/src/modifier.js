@@ -14,7 +14,16 @@
 // `ModifierContext`. This ensures that multiple voices don't trample all over each other.
 
 Vex.Flow.Modifier = (function() {
+<<<<<<< HEAD
   function Modifier() { this.init(); }
+=======
+  function Modifier() {
+    this.constructor = Modifier;
+    this.init();
+  }
+  Modifier.CATEGORY = "none";
+
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     // To enable logging for this class. Set `Vex.Flow.Modifier.DEBUG` to `true`.
   function L() { if (Modifier.DEBUG) Vex.L("Vex.Flow.Modifier", arguments); }
 
@@ -50,7 +59,11 @@ Vex.Flow.Modifier = (function() {
 
     // Every modifier has a category. The `ModifierContext` uses this to determine
     // the type and order of the modifiers.
+<<<<<<< HEAD
     getCategory: function() { return "none"; },
+=======
+    getCategory: function() { return this.constructor.CATEGORY; },
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 
     // Get and set modifier widths.
     getWidth: function() { return this.width; },

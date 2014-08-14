@@ -18,8 +18,13 @@ Vex.Flow.Test.ModifierContext.width = function() {
 
 Vex.Flow.Test.ModifierContext.management = function() {
   var mc = new Vex.Flow.ModifierContext();
+<<<<<<< HEAD
   var modifier1 = new Vex.Flow.Test.MockModifier;
   var modifier2 = new Vex.Flow.Test.MockModifier;
+=======
+  var modifier1 = new Vex.Flow.Modifier();
+  var modifier2 = new Vex.Flow.Modifier();
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 
   mc.addModifier(modifier1);
   mc.addModifier(modifier2);

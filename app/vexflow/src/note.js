@@ -22,6 +22,10 @@ Vex.Flow.Note = (function() {
   function Note(note_struct) {
     if (arguments.length > 0) this.init(note_struct);
   }
+<<<<<<< HEAD
+=======
+  Note.CATEGORY = "note";
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
 
   // ## Prototype Methods
   //
@@ -49,7 +53,19 @@ Vex.Flow.Note = (function() {
       this.duration = initData.duration;
       this.dots = initData.dots;
       this.noteType = initData.type;
+<<<<<<< HEAD
       this.setIntrinsicTicks(initData.ticks);
+=======
+
+      if (note_struct.duration_override) {
+        // Custom duration
+        this.setDuration(note_struct.duration_override);
+      } else {
+        // Default duration
+        this.setIntrinsicTicks(initData.ticks);
+      }
+
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
       this.modifiers = [];
 
       // Get the glyph code for this note from the font.
@@ -81,6 +97,13 @@ Vex.Flow.Note = (function() {
       this.ys = [];               // list of y coordinates for each note
                                   // we need to hold on to these for ties and beams.
 
+<<<<<<< HEAD
+=======
+      if (note_struct.align_center) {
+        this.setCenterAlignment(note_struct.align_center);
+      }
+
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
       // The render surface.
       this.context = null;
       this.stave = null;
@@ -117,6 +140,14 @@ Vex.Flow.Note = (function() {
       return this;
     },
 
+<<<<<<< HEAD
+=======
+
+    // `Note` is not really a modifier, but is used in
+    // a `ModifierContext`.
+    getCategory: function() { return this.constructor.CATEGORY; },
+
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
     // Set the rendering context for the note.
     setContext: function(context) { this.context = context; return this; },
 
@@ -265,9 +296,22 @@ Vex.Flow.Note = (function() {
       if (!this.tickContext) throw new Vex.RERR("NoTickContext",
           "Note needs a TickContext assigned for an X-Value");
 
+<<<<<<< HEAD
       // {osition note to left edge of tick context.
       var x = this.tickContext.getX();
       if (this.stave) x += this.stave.getNoteStartX() + this.render_options.stave_padding;
+=======
+      // Position note to left edge of tick context.
+      var x = this.tickContext.getX();
+      if (this.stave) {
+        x += this.stave.getNoteStartX() + this.render_options.stave_padding;
+      }
+      
+      if (this.isCenterAligned()){
+        x += this.getCenterXShift();
+      }
+
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
       return x;
     },
 

@@ -7,7 +7,10 @@
 Vex.Flow.Test.Rests = {};
 
 Vex.Flow.Test.Rests.Start = function() {
+<<<<<<< HEAD
   Vex.Flow.ModifierContext.DEBUG = true;
+=======
+>>>>>>> 847d976d936b462071f2849ee584caced1983ef9
   module("Rests");
   Vex.Flow.Test.runTest("Rests - Dotted",
       Vex.Flow.Test.Rests.basic);
