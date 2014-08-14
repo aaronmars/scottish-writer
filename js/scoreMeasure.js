@@ -109,7 +109,7 @@
             var formatter = new Vex.Flow.Formatter();
             formatter.joinVoices([ voices.notes, voices.dynamics ])
                 .formatToStave([ voices.notes, voices.dynamics ], stave);
-            var beams = Vex.Flow.Beam.generateBeams(notes.vex, {
+            var beams = Vex.Flow.Beam.generateFlatBeams(notes.vex, {
                 stem_direction: -1,
                 groups: [ _tsFractions[timeSig] ]
             });
@@ -119,7 +119,6 @@
                 .setConfigForLines(_staffConfig)
                 .setContext(this.context)
                 .draw();
-
             voices.notes.draw(this.context, stave);
             voices.dynamics.draw(this.context, stave);
             if(vexTuplets) {
