@@ -94,9 +94,9 @@ Vex.Flow.Formatter = (function() {
     var voice;
     for (i = 0; i < voices.length; ++i) {
       voice = voices[i];
-      if (voice.getTotalTicks().value() != totalTicks.value()) {
+      if (!(voice.getTotalTicks().equals(totalTicks))) {
         throw new Vex.RERR("TickMismatch",
-            "Voices should have same time signature.");
+            "Voices should have same total note duration in ticks.");
       }
 
       if (voice.getMode() == Vex.Flow.Voice.Mode.STRICT && !voice.isComplete())
@@ -433,6 +433,7 @@ Vex.Flow.Formatter = (function() {
       // Now distribute the ticks to each tick context, and assign them their
       // own X positions.
       var x = 0;
+      var center_x = justifyWidth / 2;
       var white_space = 0; // White space to right of previous note
       var tick_space = 0;  // Pixels from prev note x-pos to curent note x-pos
       var prev_tick = 0;
@@ -535,6 +536,12 @@ Vex.Flow.Formatter = (function() {
           accumulated_space = accumulated_space + tick_space;
           context.setX(context.getX() + accumulated_space);
           prev_tick = tick;
+
+          // Move center aligned tickables to middle
+          var centeredTickables = context.getCenterAlignedTickables();
+          centeredTickables.forEach(function(tickable) {
+            tickable.center_x_shift = center_x - context.getX();
+          });
         }
       }
     },

@@ -34,7 +34,7 @@ Vex.Flow.clefProperties.values = {
 
 /*
   Take a note in the format "Key/Octave" (e.g., "C/5") and return properties.
-  
+
   The last argument, params, is a struct the currently can contain one option, 
   octave_shift for clef ottavation (0 = default; 1 = 8va; -1 = 8vb, etc.).
 */
@@ -42,13 +42,13 @@ Vex.Flow.keyProperties = function(key, clef, params) {
   if (clef === undefined) {
     clef = 'treble';
   }
-  var options = { 
-    octave_shift: 0 
+  var options = {
+    octave_shift: 0
   };
   if (typeof params == "object") {
     Vex.Merge(options, params);
   }
-  
+
   var pieces = key.split("/");
 
   if (pieces.length < 2) {
@@ -62,9 +62,9 @@ Vex.Flow.keyProperties = function(key, clef, params) {
   if (value.octave) pieces[1] = value.octave;
 
   var o = parseInt(pieces[1]);
-  
+
   // Octave_shift is the shift to compensate for clef 8va/8vb.
-  o += -1 * options.octave_shift; 
+  o += -1 * options.octave_shift;
 
   var base_index = (o * 7) - (4 * 7);
   var line = (base_index + value.index) / 2;
@@ -610,7 +610,7 @@ Vex.Flow.parseNoteDurationString = function(durationString) {
     return null;
   }
 
-  var regexp = /(\d+|[a-z])(d*)([nrhms]|$)/;
+  var regexp = /(\d*\/?\d+|[a-z])(d*)([nrhms]|$)/;
 
   var result = regexp.exec(durationString);
   if (!result) {
@@ -692,7 +692,7 @@ Vex.Flow.parseNoteData = function(noteData) {
 
 // Used to convert duration aliases to the number based duration.
 // If the input isn't an alias, simply return the input.
-// 
+//
 // example: 'q' -> '4', '8' -> '8'
 function sanitizeDuration(duration) {
   var alias = Vex.Flow.durationAliases[duration];
@@ -708,14 +708,14 @@ function sanitizeDuration(duration) {
   return duration;
 }
 
-// Convert the `duration` to a fraction
+// Convert the `duration` to an fraction
 Vex.Flow.durationToFraction = function(duration) {
-  return new Vex.Flow.Fraction(Vex.Flow.durationToTicks(duration), 1);
+  return new Vex.Flow.Fraction().parse(sanitizeDuration(duration));
 };
 
-// Convert the `duration` to an integer
-Vex.Flow.durationToInteger = function(duration) {
-  return parseInt(sanitizeDuration(duration));
+// Convert the `duration` to an number
+Vex.Flow.durationToNumber = function(duration) {
+  return Vex.Flow.durationToFraction(duration).value();
 };
 
 // Convert the `duration` to total ticks
@@ -731,6 +731,7 @@ Vex.Flow.durationToTicks = function(duration) {
 };
 
 Vex.Flow.durationToTicks.durations = {
+  "1/2":  Vex.Flow.RESOLUTION * 2,
   "1":    Vex.Flow.RESOLUTION / 1,
   "2":    Vex.Flow.RESOLUTION / 2,
   "4":    Vex.Flow.RESOLUTION / 4,
@@ -778,6 +779,47 @@ Vex.Flow.durationToGlyph = function(duration, type) {
 };
 
 Vex.Flow.durationToGlyph.duration_codes = {
+  "1/2": {
+    common: {
+      head_width: 22,
+      stem: false,
+      stem_offset: 0,
+      flag: false,
+      stem_up_extension: -Vex.Flow.STEM_HEIGHT,
+      stem_down_extension: -Vex.Flow.STEM_HEIGHT,
+      gracenote_stem_up_extension: -Vex.Flow.STEM_HEIGHT,
+      gracenote_stem_down_extension: -Vex.Flow.STEM_HEIGHT,
+      tabnote_stem_up_extension: -Vex.Flow.STEM_HEIGHT,
+      tabnote_stem_down_extension: -Vex.Flow.STEM_HEIGHT,
+      dot_shiftY: 0,
+      line_above: 0,
+      line_below: 0
+    },
+    type: {
+      "n": { // Breve note
+        code_head: "v53"
+      },
+      "h": { // Breve note harmonic
+        code_head: "v59"
+      },
+      "m": { // Breve note muted -
+        code_head: "vf",
+        stem_offset: 0
+      },
+      "r": { // Breve rest
+        code_head: "v31",
+        head_width: 24,
+        rest: true,
+        position: "B/5",
+        dot_shiftY: 0.5
+      },
+      "s": { // Breve note slash -
+        // Drawn with canvas primitives
+        head_width: 15,
+        position: "B/4"
+      }
+    }
+  },
   "1": {
     common: {
       head_width: 16,
